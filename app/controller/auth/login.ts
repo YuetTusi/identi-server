@@ -12,7 +12,7 @@ class LoginController extends Controller {
     public async getById() {
         const { ctx, service } = this;
         const { id } = ctx.params;
-        console.log('getById');
+
         if (id) {
             try {
                 const data = await service.permission.user.getById(id);
@@ -60,13 +60,6 @@ class LoginController extends Controller {
 
         try {
             const data: any[] = await service.permission.user.getByNameAndPassword(username, password);
-
-            // console.log(ctx.request.body);
-
-            console.log(data);
-            console.log(app.config.keys);
-            // console.log(ctx.helper.jwtSign(data, app.config.keys))
-
 
             if (data.length === 0) {
                 ctx.body = {

@@ -24,5 +24,38 @@ export default {
      */
     jwtSign(payload: string | object | Buffer, key: string) {
         return sign(payload, key);
+    },
+    /**
+     * 将资源数据转为菜单JSON
+     * @param data 资源表权限数据
+     */
+    makeMenu(data: any[]) {
+
+        let menu:any[] = [];
+
+        const menuItems = data.filter((i) => i.level === 0 || i.level === 1);
+        const menuActions = data.filter((i) => i.level === 2);
+
+        for (let i = 0; i < menuItems.length; i++) {
+
+            if (menuItems[i].level === 0) {
+                menu.push({
+                    ...data[i],
+                    children: []
+                });
+            } else {
+
+                for (let j = 0; j < menu.length; j++) {
+                    if (menuItems[i].pid === menu[j].id) {
+
+                        menu[j].children.push({
+                            ...menuItems[i],
+                            children: menuActions.filter(action => action.pid === menuItems[i].id)
+                        });
+                    }
+                }
+            }
+        }
+        return menu;
     }
 }

@@ -9,6 +9,7 @@ type AutoInstanceType<T, U = T extends CanExportFunc ? T : T extends AnyFunc ? R
 import ExportTest from '../../../app/service/Test';
 import ExportMenuMenu from '../../../app/service/menu/menu';
 import ExportPermissionResource from '../../../app/service/permission/resource';
+import ExportPermissionRole from '../../../app/service/permission/role';
 import ExportPermissionUser from '../../../app/service/permission/user';
 
 declare module 'egg' {
@@ -19,6 +20,7 @@ declare module 'egg' {
     }
     permission: {
       resource: AutoInstanceType<typeof ExportPermissionResource>;
+      role: AutoInstanceType<typeof ExportPermissionRole>;
       user: AutoInstanceType<typeof ExportPermissionUser>;
     }
   }

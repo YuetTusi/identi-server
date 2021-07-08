@@ -15,4 +15,8 @@ export default (app: Application) => {
   //# 资源查看
   router.get('/resource', controller.permission.resource.getAll); //* 查询所有资源
   router.post('/resource', controller.permission.resource.findByPage); //* 资源查看
+
+  //# 角色管理
+  router.get('/role/:id', controller.permission.role.getById); //* id查询角色
+  router.post('/role', controller.permission.role.findByPage); //* 查询角色
 };

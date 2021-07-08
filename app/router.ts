@@ -12,6 +12,7 @@ export default (app: Application) => {
   //# 菜单
   router.get('/menu/:id', controller.menu.menu.getMenuByUserId); //* 查询登录用户的菜单
 
-  //# 后台管理
+  //# 资源查看
+  router.get('/resource', controller.permission.resource.getAll); //* 查询所有资源
   router.post('/resource', controller.permission.resource.findByPage); //* 资源查看
 };

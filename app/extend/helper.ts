@@ -1,7 +1,22 @@
 import { JwtPayload, sign, verify } from 'jsonwebtoken';
 
 export default {
-
+    /**
+     * 验证是否是null或undefined
+     * @param value 值
+     * @returns 是/否
+     */
+    isNullOrUndefined(value: any) {
+        return value === undefined || value === null;
+    },
+    /**
+     * 验证是否是null或undefined或空串
+     * @param value 值
+     * @returns 是/否
+     */
+    isNullOrUndefinedOrEmpty(value: any) {
+        return value === undefined || value === null || value === '';
+    },
     /**
      * 验证JWT_Token篡改
      * @param token 验证的token
@@ -31,7 +46,7 @@ export default {
      */
     makeMenu(data: any[]) {
 
-        let menu:any[] = [];
+        let menu: any[] = [];
 
         const menuItems = data.filter((i) => i.level === 0 || i.level === 1);
         const menuActions = data.filter((i) => i.level === 2);

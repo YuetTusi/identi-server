@@ -21,4 +21,5 @@ export default (app: Application) => {
   //# 角色管理
   router.get('/role/:id', controller.permission.role.getById); //* id查询角色
   router.post('/role', controller.permission.role.findByPage); //* 查询角色
+  router.put('/role/resource/:id', controller.permission.role.updateResourceById); //* 更新角色所属资源
 };

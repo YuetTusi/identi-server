@@ -10,6 +10,38 @@ class RoleService extends Service {
     }
 
     /**
+     * 更新当前角色的资源
+     * @param id 角色id
+     * @param resourceId 新分配的资源id
+     */
+    async updateResourceById(id: string, resourceId: string[]) {
+        const { mysql } = this.app;
+        let insertCondition = '';
+        let insertParam: string[] = [];
+
+        for (let i = 0, l = resourceId.length; i < l; i++) {
+            if (i === l - 1) {
+                insertCondition += ' (?,?)';
+            } else {
+                insertCondition += ' (?,?), ';
+            }
+            insertParam.push(id, resourceId[i]);
+        }
+
+        const DEL_RESOURCE = 'DELETE FROM role_resource WHERE role_id=?';
+        const INSERT_NEW_RESOURCE = 'INSERT INTO role_resource(role_id,resource_id) VALUES' + insertCondition;
+
+        // console.log(INSERT_NEW_RESOURCE);
+        // console.log(insertParam);
+
+        return await mysql.beginTransactionScope(async (conn) => {
+            await conn.query(DEL_RESOURCE, [id]);
+            await conn.query(INSERT_NEW_RESOURCE, insertParam);
+            return { success: true };
+        });
+    }
+
+    /**
      * 按主键查询角色
      * @param id 角色id
      */

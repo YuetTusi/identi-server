@@ -6,6 +6,38 @@ import { Controller } from 'egg';
 export default class ResourceController extends Controller {
 
     /**
+     * 更新角色分配的资源
+     */
+    public async updateResourceById() {
+        const { ctx } = this;
+        const { id } = ctx.params;
+        const { resourceId } = ctx.request.body;
+
+        try {
+            const { success }: { success: boolean } = await ctx.service.permission.role.updateResourceById(id, resourceId);
+            if (success) {
+                ctx.body = {
+                    code: 0,
+                    data: { success },
+                    error: null
+                }
+            } else {
+                ctx.body = {
+                    code: 0,
+                    data: { success: false },
+                    error: null
+                }
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                data: { success: false },
+                error
+            }
+        }
+    }
+
+    /**
      * 按id查询角色
      */
     public async getById() {

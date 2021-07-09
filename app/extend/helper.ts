@@ -56,16 +56,17 @@ export default {
             if (menuItems[i].level === 0) {
                 menu.push({
                     ...data[i],
-                    children: []
+                    children: null
                 });
             } else {
 
                 for (let j = 0; j < menu.length; j++) {
                     if (menuItems[i].pid === menu[j].id) {
-
+                        const next = menuActions.filter(action => action.pid === menuItems[i].id);
+                        menu[j].children = menu[j].children === null ? [] : menu[j].children;
                         menu[j].children.push({
                             ...menuItems[i],
-                            children: menuActions.filter(action => action.pid === menuItems[i].id)
+                            children: next.length === 0 ? null : next
                         });
                     }
                 }

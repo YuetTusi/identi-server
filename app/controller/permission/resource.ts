@@ -6,6 +6,50 @@ import { Controller } from 'egg';
 export default class ResourceController extends Controller {
 
     /**
+     * 查询用户所拥有的资源
+     */
+    public async getResourceByRoleId() {
+        const { ctx } = this;
+        const { id } = ctx.params;
+        try {
+            const data = await ctx.service.permission.resource.getByRoleId(id);
+            ctx.body = {
+                code: 0,
+                error: null,
+                data
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                error,
+                data: null
+            }
+        }
+    }
+
+    /**
+     * 查询所有资源，按层级返回数据
+     */
+    public async getResourceWithLevel() {
+        const { ctx } = this;
+        try {
+            const data = await ctx.service.permission.resource.getAll();
+            const levelData = ctx.helper.makeMenu(data);
+            ctx.body = {
+                code: 0,
+                error: null,
+                data: levelData
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                error,
+                data: null
+            }
+        }
+    }
+
+    /**
      * 查询全部
      */
     public async getAll() {

@@ -14,8 +14,32 @@ class ResourceService extends Service {
      */
     async getAll() {
         const { mysql } = this.app;
-        let data = await mysql.select(this.tableName, { orders: [['level', 'asc']] });
+        let data = await mysql.select(this.tableName, {
+            columns: ['id', 'pid', 'name', 'key', 'type', 'level', 'seq', 'create_time', 'update_time'],
+            orders: [['level', 'asc'], ['seq', 'asc']]
+        });
         return data;
+    }
+
+    /**
+     * 查询角色所拥有的资源
+     * @param id 角色id
+     */
+    async getByRoleId(id) {
+        const { app } = this;
+
+        const QUERY_BY_USERID = `
+        SELECT DISTINCT s.id,s.pid,s.level,s.name,s.key,s.type
+        FROM role r
+        INNER JOIN role_resource rr
+        ON r.id=rr.role_id
+        INNER JOIN resource s
+        ON rr.resource_id=s.id
+        WHERE r.id=?
+        ORDER BY s.level DESC;
+        `;
+
+        return await app.mysql.query(QUERY_BY_USERID, [id]);
     }
 
     /**

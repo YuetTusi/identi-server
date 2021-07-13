@@ -5,6 +5,8 @@ import { Service } from 'egg';
  */
 class RoleService extends Service {
 
+    private tableName = 'role';
+
     constructor(props) {
         super(props);
     }
@@ -84,6 +86,18 @@ class RoleService extends Service {
             app.mysql.query(FIND_PAGE, [pageSize, (pageIndex - 1) * pageSize]),
             app.mysql.query(FIND_TOTAL_ROW)
         ]);
+    }
+
+    /**
+     * 查询全部数据
+     * @returns 
+     */
+    async getAll() {
+        const { mysql } = this.app;
+        let data = await mysql.select(this.tableName, {
+            columns: ['id', 'name', 'desc', 'create_time', 'update_time']
+        });
+        return data;
     }
 }
 

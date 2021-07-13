@@ -86,4 +86,26 @@ export default class ResourceController extends Controller {
             }
         }
     }
+
+    /**
+     * 查询全部角色
+     */
+    public async getAll() {
+        const { ctx } = this;
+
+        try {
+            const data = await ctx.service.permission.role.getAll();
+            ctx.body = {
+                code: 0,
+                data,
+                error: null
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                error,
+                data: null
+            }
+        }
+    }
 }

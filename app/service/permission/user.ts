@@ -28,6 +28,29 @@ class UserService extends Service {
         const data = await app.mysql.query(GET_USER_BY_ID, [id]);
         return data;
     }
+
+    /**
+     * 按主键查询用户所拥有角色
+     * @param id 用户id
+     */
+    public async getRoleById(id: string) {
+
+        const { app } = this;
+
+        const GET_ROLE_BY_ID = `
+            SELECT r.id,r.name,r.desc
+            FROM user u
+            INNER JOIN user_role ur
+            ON u.id=ur.user_id
+            INNER JOIN role r
+            ON ur.role_id=r.id
+            WHERE u.id=?
+            `;
+
+        const data = await app.mysql.query(GET_ROLE_BY_ID, [id]);
+        return data;
+    }
+
     /**
      * 登录验证
      * @param username 用户名
@@ -52,6 +75,12 @@ class UserService extends Service {
         return data;
     }
 
+    /**
+     * 分页查询
+     * @param condition 条件
+     * @param pageIndex 当前页
+     * @param pageSize 页尺寸
+     */
     public async findByPage(condition: any, pageIndex: number, pageSize: number) {
 
         const { app, ctx } = this;
@@ -75,6 +104,42 @@ class UserService extends Service {
             app.mysql.query(FIND_PAGE, [...sqlParams, pageSize, (pageIndex - 1) * pageSize]),
             app.mysql.query(FIND_TOTAL_ROW, [...sqlParams])
         ]);
+    }
+
+    /**
+     * 更新用户拥有角色
+     * @param id 用户id
+     * @param roleId 角色id（多条）
+     */
+    public async updateRoleById(id: string, roleId: string[] = []) {
+
+        const { mysql } = this.app;
+        let insertCondition = '';
+        let insertParam: string[] = [];
+        const DEL_ROLE = 'DELETE FROM user_role WHERE user_id=?';
+
+        if (roleId.length === 0) {
+            return await mysql.beginTransactionScope(async (conn) => {
+                await conn.query(DEL_ROLE, [id]);
+                return { success: true };
+            });
+        } else {
+            for (let i = 0, l = roleId.length; i < l; i++) {
+                if (i === l - 1) {
+                    insertCondition += ' (?,?)';
+                } else {
+                    insertCondition += ' (?,?), ';
+                }
+                insertParam.push(id, roleId[i]);
+            }
+            const INSERT_NEW_ROLE = 'INSERT INTO user_role (user_id,role_id) VALUES ' + insertCondition;
+
+            return await mysql.beginTransactionScope(async (conn) => {
+                await conn.query(DEL_ROLE, [id]);
+                await conn.query(INSERT_NEW_ROLE, insertParam);
+                return { success: true };
+            });
+        }
     }
 }
 

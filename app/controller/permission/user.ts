@@ -28,6 +28,28 @@ export default class UserController extends Controller {
     }
 
     /**
+     * 按用户id查询所拥有角色
+     */
+    public async getRoleById() {
+        const { ctx } = this;
+        const { id } = ctx.params;
+        try {
+            const data = await ctx.service.permission.user.getRoleById(id);
+            ctx.body = {
+                code: 0,
+                error: null,
+                data
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                error,
+                data: null
+            }
+        }
+    }
+
+    /**
      * 分页查询
      */
     public async findByPage() {
@@ -51,6 +73,42 @@ export default class UserController extends Controller {
                     data: null,
                     total: 0
                 }
+            }
+        }
+    }
+
+    /**
+     * 更新用户拥有角色
+     */
+    public async updateRoleById() {
+        const { ctx } = this;
+        const { id } = ctx.params;
+        const { roleId } = ctx.request.body;
+
+        console.log(id);
+        console.log(roleId);
+        console.log(typeof roleId);
+
+        try {
+            const { success }: { success: boolean } = await ctx.service.permission.user.updateRoleById(id, roleId);
+            if (success) {
+                ctx.body = {
+                    code: 0,
+                    data: { success },
+                    error: null
+                }
+            } else {
+                ctx.body = {
+                    code: 0,
+                    data: { success: false },
+                    error: null
+                }
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                data: { success: false },
+                error
             }
         }
     }

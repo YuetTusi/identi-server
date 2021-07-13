@@ -19,11 +19,14 @@ export default (app: Application) => {
   router.get('/resource/role/:id', controller.permission.resource.getResourceByRoleId);//* 按用户id查询拥有的资源
 
   //# 角色管理
+  router.get('/role', controller.permission.role.getAll); //* 查询全部角色
   router.get('/role/:id', controller.permission.role.getById); //* id查询角色
   router.post('/role', controller.permission.role.findByPage); //* 查询角色
   router.put('/role/resource/:id', controller.permission.role.updateResourceById); //* 更新角色所属资源
 
   //# 用户管理
   router.get('/user/:id', controller.permission.user.getById); //* id查询用户
+  router.get('/user/role/:id', controller.permission.user.getRoleById); //* id查询用户拥有角色
   router.post('/user', controller.permission.user.findByPage); //* 查询用户
+  router.put('/user/role/:id', controller.permission.user.updateRoleById); //* 更新用户拥有的角色
 };

@@ -51,6 +51,31 @@ class UserService extends Service {
         const data = await app.mysql.query(LOGIN_SQL, [username, password]);
         return data;
     }
+
+    public async findByPage(condition: any, pageIndex: number, pageSize: number) {
+
+        const { app, ctx } = this;
+
+        let sqlCondition = '';
+        let sqlParams: any[] = [];
+
+        if (!ctx.helper.isNullOrUndefinedOrEmpty(condition.username)) {
+            sqlCondition += ' AND username like ? ';
+            sqlParams = sqlParams.concat([`%${condition.username}%`]);
+        }
+
+        const FIND_PAGE = `SELECT u.id,u.username,u.desc,u.mail,u.realname,u.mobile,u.create_time,u.update_time
+        FROM user u 
+        WHERE 1=1 ${sqlCondition}
+        ORDER BY u.create_time DESC 
+        LIMIT ? OFFSET ?`;
+        const FIND_TOTAL_ROW = `SELECT count(*) as 'total' FROM user WHERE 1=1 ${sqlCondition}`;
+
+        return await Promise.all([
+            app.mysql.query(FIND_PAGE, [...sqlParams, pageSize, (pageIndex - 1) * pageSize]),
+            app.mysql.query(FIND_TOTAL_ROW, [...sqlParams])
+        ]);
+    }
 }
 
 export default UserService;

@@ -7,6 +7,7 @@ import ExportAuthLogin from '../../../app/controller/auth/login';
 import ExportMenuMenu from '../../../app/controller/menu/menu';
 import ExportPermissionResource from '../../../app/controller/permission/resource';
 import ExportPermissionRole from '../../../app/controller/permission/role';
+import ExportPermissionUser from '../../../app/controller/permission/user';
 
 declare module 'egg' {
   interface IController {
@@ -20,6 +21,7 @@ declare module 'egg' {
     permission: {
       resource: ExportPermissionResource;
       role: ExportPermissionRole;
+      user: ExportPermissionUser;
     }
   }
 }

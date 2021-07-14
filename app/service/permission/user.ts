@@ -90,9 +90,9 @@ class UserService extends Service {
         let sqlCondition = '';
         let sqlParams: any[] = [];
 
-        if (!ctx.helper.isNullOrUndefinedOrEmpty(condition.username)) {
+        if (!ctx.helper.isNullOrUndefinedOrEmpty(condition?.username)) {
             sqlCondition += ' AND username like ? ';
-            sqlParams = sqlParams.concat([`%${condition.username}%`]);
+            sqlParams = sqlParams.concat([`%${condition?.username}%`]);
         }
 
         const FIND_PAGE = `SELECT u.id,u.username,u.desc,u.mail,u.realname,u.mobile,u.create_time,u.update_time
@@ -162,6 +162,23 @@ class UserService extends Service {
                 return { success: true };
             });
         }
+    }
+
+    /**
+     * 删除用户
+     * @param id 用户id
+     */
+    public async del(id: string) {
+        const { mysql } = this.app;
+
+        const DEL_USER_ROLE = 'DELETE FROM user_role WHERE user_id=?';
+        const DEL_USER = 'DELETE FROM user WHERE id=?';
+
+        return await mysql.beginTransactionScope(async (conn) => {
+            await conn.query(DEL_USER_ROLE, [id]);
+            await conn.query(DEL_USER, [id]);
+            return { success: true };
+        });
     }
 }
 

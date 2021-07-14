@@ -108,10 +108,6 @@ export default class UserController extends Controller {
         const { id } = ctx.params;
         const { roleId } = ctx.request.body;
 
-        console.log(id);
-        console.log(roleId);
-        console.log(typeof roleId);
-
         try {
             const { success }: { success: boolean } = await ctx.service.permission.user.updateRoleById(id, roleId);
             if (success) {
@@ -154,6 +150,37 @@ export default class UserController extends Controller {
                 code: 1,
                 error,
                 data: 0
+            }
+        }
+    }
+
+    /**
+     * 删除用户
+     */
+    public async del() {
+        const { ctx } = this;
+        const { id } = ctx.params;
+
+        try {
+            const { success }: { success: boolean } = await ctx.service.permission.user.del(id);
+            if (success) {
+                ctx.body = {
+                    code: 0,
+                    data: { success },
+                    error: null
+                }
+            } else {
+                ctx.body = {
+                    code: 0,
+                    data: { success: false },
+                    error: null
+                }
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                data: { success: false },
+                error
             }
         }
     }

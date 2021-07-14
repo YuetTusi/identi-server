@@ -9,7 +9,7 @@ export default (appInfo: EggAppInfo) => {
 
   //# 中间件配置
   config.middleware = [
-    // 'auth'
+    'auth'
   ];
 
   //# login中间件参数

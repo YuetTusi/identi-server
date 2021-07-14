@@ -70,12 +70,13 @@ class LoginController extends Controller {
                 }
             } else {
 
+                const role = data.map(i => i.role_name);
                 ctx.body = {
                     code: 0,
                     success: true,
                     data: {
                         uid: data[0].id,
-                        role: data.map(i => i.role_name),
+                        role: role[0] === null ? [] : role,
                         token: ctx.helper.jwtSign(data[0].id, app.config.keys)
                     },
                     error: null

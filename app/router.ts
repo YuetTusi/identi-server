@@ -27,6 +27,8 @@ export default (app: Application) => {
   //# 用户管理
   router.get('/user/:id', controller.permission.user.getById); //* id查询用户
   router.get('/user/role/:id', controller.permission.user.getRoleById); //* id查询用户拥有角色
-  router.post('/user', controller.permission.user.findByPage); //* 查询用户
+  router.get('/user/count/:username', controller.permission.user.countByUserName); //* 查询用户名存在数量
+  router.post('/user/list', controller.permission.user.findByPage); //* 查询用户
+  router.post('/user', controller.permission.user.insert); //* 添加用户
   router.put('/user/role/:id', controller.permission.user.updateRoleById); //* 更新用户拥有的角色
 };

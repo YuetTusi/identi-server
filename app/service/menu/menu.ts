@@ -29,7 +29,7 @@ class MenuService extends Service {
             INNER JOIN resource s
             ON rr.resource_id=s.id
             WHERE u.id=?
-            ORDER BY s.level ASC;
+            ORDER BY s.level ASC,s.seq ASC;
         `;
 
         return await app.mysql.query(QUERY_MENU, [id]);

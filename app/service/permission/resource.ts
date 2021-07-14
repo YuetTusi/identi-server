@@ -58,7 +58,7 @@ class ResourceService extends Service {
         }
 
         const FIND_PAGE = `
-        SELECT id,pid,name,\`key\`,type,level,create_time,update_time 
+        SELECT id,pid,name,\`key\`,type,level,seq,create_time,update_time 
         FROM resource 
         WHERE 1=1 ${sqlCondition}
         ORDER BY level ASC, seq ASC 

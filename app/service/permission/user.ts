@@ -3,6 +3,8 @@ import { Service } from 'egg';
 
 class UserService extends Service {
 
+    private tableName = 'user';
+
     constructor(props) {
         super(props);
     }
@@ -104,6 +106,26 @@ class UserService extends Service {
             app.mysql.query(FIND_PAGE, [...sqlParams, pageSize, (pageIndex - 1) * pageSize]),
             app.mysql.query(FIND_TOTAL_ROW, [...sqlParams])
         ]);
+    }
+
+    /**
+     * 查询用户名存在数量（验证增加重名验证）
+     * @param username 用户名
+     */
+    public async countByUserName(username: string) {
+        const { mysql } = this.app;
+        const COUNT_USERNAME = 'SELECT count(*) AS "count" FROM user WHERE username=?';
+
+        return await mysql.query(COUNT_USERNAME, [username]);
+    }
+
+    /**
+     * 新增用户
+     * @param data 用户数据
+     */
+    public async insert(data: any) {
+        const { app } = this;
+        return await app.mysql.insert(this.tableName, data);
     }
 
     /**

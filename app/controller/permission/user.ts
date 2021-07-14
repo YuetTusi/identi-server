@@ -78,6 +78,29 @@ export default class UserController extends Controller {
     }
 
     /**
+     * 查询用户名存在数量
+     */
+    public async countByUserName() {
+        const { ctx } = this;
+        const { username } = ctx.params;
+
+        try {
+            const [data] = await ctx.service.permission.user.countByUserName(username);
+            ctx.body = {
+                code: 0,
+                error: null,
+                data
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                error,
+                data: null
+            }
+        }
+    }
+
+    /**
      * 更新用户拥有角色
      */
     public async updateRoleById() {
@@ -109,6 +132,28 @@ export default class UserController extends Controller {
                 code: 1,
                 data: { success: false },
                 error
+            }
+        }
+    }
+
+    /**
+     * 创建用户
+     */
+    public async insert() {
+        const { ctx } = this;
+        const { form } = ctx.request.body;
+        try {
+            const { affectedRows } = await ctx.service.permission.user.insert(form);
+            ctx.body = {
+                code: 0,
+                error: null,
+                data: affectedRows //影响行数
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                error,
+                data: 0
             }
         }
     }

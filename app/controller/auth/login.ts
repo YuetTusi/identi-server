@@ -9,6 +9,9 @@ class LoginController extends Controller {
         super(props);
     }
 
+    /**
+     * 按id查询登录用户及角色
+     */
     public async getById() {
         const { ctx, service } = this;
         const { id } = ctx.params;
@@ -54,6 +57,9 @@ class LoginController extends Controller {
         }
     }
 
+    /**
+     * 登录验证
+     */
     public async valid() {
         const { app, ctx, service } = this;
         const { username, password } = ctx.request.body;

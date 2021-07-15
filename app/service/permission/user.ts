@@ -1,5 +1,5 @@
 import { Service } from 'egg';
-
+import { Base64 } from 'js-base64';
 
 class UserService extends Service {
 
@@ -61,7 +61,6 @@ class UserService extends Service {
      */
     public async getByNameAndPassword(username: string, password: string) {
         const { app } = this;
-
         const LOGIN_SQL = `
             SELECT u.id,r.name as 'role_name' 
             FROM user u 
@@ -71,9 +70,8 @@ class UserService extends Service {
             ON ur.role_id=r.id 
             WHERE u.username=? AND u.password=?;
         `;
-        // const data = await app.mysql.get(tableName, { username, password });
 
-        const data = await app.mysql.query(LOGIN_SQL, [username, password]);
+        const data = await app.mysql.query(LOGIN_SQL, [username, Base64.encode(password)]);
         return data;
     }
 
@@ -125,6 +123,7 @@ class UserService extends Service {
      */
     public async insert(data: any) {
         const { app } = this;
+        data.password = Base64.encode(data.password);
         return await app.mysql.insert(this.tableName, data);
     }
 

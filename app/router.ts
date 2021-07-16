@@ -32,5 +32,6 @@ export default (app: Application) => {
   router.post('/user', controller.permission.user.insert); //* 添加用户
   router.put('/user/:id', controller.permission.user.update); //* 更新用户
   router.put('/user/role/:id', controller.permission.user.updateRoleById); //* 更新用户拥有的角色
+  router.put('/user/reset/:id', controller.permission.user.modifyPassword); //* 重置用户密码
   router.delete('/user/:id', controller.permission.user.del); //* 删除用户
 };

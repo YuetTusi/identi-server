@@ -191,6 +191,25 @@ class UserService extends Service {
             return { success: true };
         });
     }
+
+    /**
+     * 重置用户密码
+     * @param id 用户id
+     * @param newPassword 重置密码
+     */
+    public async modifyPassword(id: string, newPassword: string) {
+
+        const { mysql } = this.app;
+
+        newPassword = Base64.encode(newPassword);
+
+        const RESET_PASSWORD = `
+        UPDATE user SET password=? WHERE id=?;
+        `;
+
+        const { affectedRows } = await mysql.query(RESET_PASSWORD, [newPassword, id]);
+        return affectedRows;
+    }
 }
 
 export default UserService;

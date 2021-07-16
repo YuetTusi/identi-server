@@ -133,6 +133,32 @@ export default class UserController extends Controller {
     }
 
     /**
+     * 重置用户密码
+     * @returns 返回影响行数
+     */
+    public async modifyPassword() {
+
+        const { ctx } = this;
+        const { id } = ctx.params;
+        const { form } = ctx.request.body;
+
+        try {
+            const affectedRows = await ctx.service.permission.user.modifyPassword(id, form.password);
+            ctx.body = {
+                code: 0,
+                data: affectedRows,
+                error: null
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                data: 0,
+                error
+            }
+        }
+    }
+
+    /**
      * 创建用户
      */
     public async insert() {

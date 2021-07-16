@@ -6,6 +6,27 @@ import { Controller } from 'egg';
 export default class UserController extends Controller {
 
     /**
+     * 查询全部用户
+     */
+    public async getAll() {
+        const { ctx } = this;
+        try {
+            const data = await ctx.service.permission.user.getAll();
+            ctx.body = {
+                code: 0,
+                error: null,
+                data
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                error,
+                data: null
+            }
+        }
+    }
+
+    /**
      * 按id查询用户
      */
     public async getById() {

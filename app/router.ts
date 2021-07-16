@@ -25,6 +25,7 @@ export default (app: Application) => {
   router.put('/role/resource/:id', controller.permission.role.updateResourceById); //* 更新角色所属资源
 
   //# 用户管理
+  router.get('/user/', controller.permission.user.getAll); //* 查询全部用户
   router.get('/user/:id', controller.permission.user.getById); //* id查询用户
   router.get('/user/role/:id', controller.permission.user.getRoleById); //* id查询用户拥有角色
   router.get('/user/count/:username', controller.permission.user.countByUserName); //* 查询用户名存在数量
@@ -34,6 +35,9 @@ export default (app: Application) => {
   router.put('/user/role/:id', controller.permission.user.updateRoleById); //* 更新用户拥有的角色
   router.put('/user/reset/:id', controller.permission.user.modifyPassword); //* 重置用户密码
   router.delete('/user/:id', controller.permission.user.del); //* 删除用户
+
+  //# 案件管理
+  router.post('/law-case', controller.lawCase.lawCase.insert); //* 添加案件
 
   //# 字典
   router.get('/dict/:category', controller.dict.dict.getByCategory); //* 按分类查询字典

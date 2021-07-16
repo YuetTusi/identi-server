@@ -10,6 +10,18 @@ class UserService extends Service {
     }
 
     /**
+     * 查询全部用户
+     */
+    public async getAll() {
+        const { mysql } = this.app;
+
+        return await mysql.select(this.tableName, {
+            columns: ['id', 'username', 'mail', 'mobile', 'realname', 'desc', 'create_time', 'update_time'],
+            orders: [['create_time', 'asc']]
+        });
+    }
+
+    /**
      * 按主键查询用户
      * @param id 用户表id
      */

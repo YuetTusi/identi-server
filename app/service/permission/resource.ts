@@ -58,13 +58,15 @@ class ResourceService extends Service {
         }
 
         const FIND_PAGE = `
-        SELECT id,pid,name,\`key\`,type,level,seq,create_time,update_time 
-        FROM resource 
+        SELECT 
+        r.name,r.key,r.type,r.level,r.seq,
+            (SELECT name FROM resource WHERE id = (SELECT pid FROM resource WHERE id=r.id)) AS 'pname',
+        r.create_time,r.update_time,r.id,r.pid
+        FROM resource r 
         WHERE 1=1 ${sqlCondition}
-        ORDER BY level ASC, seq ASC 
-        LIMIT ? 
-        OFFSET ?
-        `;
+        ORDER BY level ASC, pid ASC
+        LIMIT ? OFFSET ?`;
+
         const FIND_TOTAL_ROW = `
         SELECT count(*) as 'total' FROM resource WHERE 1=1 ${sqlCondition}
         `;

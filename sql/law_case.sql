@@ -1,0 +1,31 @@
+CREATE TABLE `identi_server`.`law_case` (
+  `id` VARCHAR(45) NOT NULL COMMENT '主键',
+  `check_id` VARCHAR(45) NULL COMMENT '审核人id',
+  `identi_id` VARCHAR(45) NULL COMMENT '鉴定人id',
+  `state` INT NULL COMMENT '状态',
+  `case_name` VARCHAR(255) NOT NULL COMMENT '案件名称',
+  `check_unit_name` VARCHAR(255) NULL COMMENT '检验单位',
+  `officer_no` VARCHAR(255) NULL COMMENT '采集人员编号&警号',
+  `officer_name` VARCHAR(255) NULL COMMENT '采集人员名称',
+  `security_case_no` VARCHAR(255) NULL COMMENT '网安部门案件编号',
+  `security_case_type` VARCHAR(255) NULL COMMENT '网安部门案件类型',
+  `security_case_name` VARCHAR(255) NULL COMMENT '网安部门案件名称',
+  `handle_case_no` VARCHAR(255) NULL COMMENT '执法办案系统案件编号',
+  `handle_case_type` VARCHAR(255) NULL COMMENT '执法办案系统案件类别',
+  `handle_case_name` VARCHAR(255) NULL COMMENT '执法办案系统案件名称',
+  `create_time` DATETIME NULL COMMENT '创建时间',
+  `update_time` DATETIME NULL COMMENT '更新时间',
+  `col1` VARCHAR(45) NULL,
+  `col2` VARCHAR(45) NULL,
+  `col3` VARCHAR(45) NULL,
+  `col4` VARCHAR(45) NULL,
+  `col5` VARCHAR(45) NULL,
+  `col6` VARCHAR(45) NULL,
+  `col7` VARCHAR(45) NULL,
+  `col8` VARCHAR(45) NULL,
+  `col9` VARCHAR(45) NULL,
+  `col10` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COMMENT = '案件表';

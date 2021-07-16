@@ -30,6 +30,7 @@ export default (app: Application) => {
   router.get('/user/count/:username', controller.permission.user.countByUserName); //* 查询用户名存在数量
   router.post('/user/list', controller.permission.user.findByPage); //* 查询用户
   router.post('/user', controller.permission.user.insert); //* 添加用户
+  router.put('/user/:id', controller.permission.user.update); //* 更新用户
   router.put('/user/role/:id', controller.permission.user.updateRoleById); //* 更新用户拥有的角色
   router.delete('/user/:id', controller.permission.user.del); //* 删除用户
 };

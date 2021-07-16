@@ -18,7 +18,7 @@ class UserService extends Service {
         const { app } = this;
 
         const GET_USER_BY_ID = `
-            SELECT u.id,u.username,r.name as 'role_name' 
+            SELECT u.id,u.username,u.mail,u.mobile,u.realname,u.desc,r.name as 'role_name' 
             FROM user u 
             LEFT OUTER JOIN user_role ur 
             on u.id=ur.user_id 
@@ -125,6 +125,18 @@ class UserService extends Service {
         const { app } = this;
         data.password = Base64.encode(data.password);
         return await app.mysql.insert(this.tableName, data);
+    }
+
+    /**
+     * 更新用户
+     * @param id 用户id
+     * @param data 用户数据
+     * @returns 影响的行数
+     */
+    public async update(data: any) {
+        const { app } = this;
+        const { affectedRows } = await app.mysql.update(this.tableName, data);
+        return affectedRows;
     }
 
     /**

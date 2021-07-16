@@ -155,6 +155,32 @@ export default class UserController extends Controller {
     }
 
     /**
+     * 更新用户
+     */
+    public async update() {
+        const { ctx } = this;
+        const { id } = ctx.params;
+        const { form } = ctx.request.body;
+
+        form.id = id;
+        try {
+            const affectedRows = await ctx.service.permission.user.update(form);
+            ctx.body = {
+                code: 0,
+                error: null,
+                data: affectedRows //影响行数
+            }
+        } catch (error) {
+            console.log(error);
+            ctx.body = {
+                code: 1,
+                error,
+                data: 0//影响行数
+            }
+        }
+    }
+
+    /**
      * 删除用户
      */
     public async del() {

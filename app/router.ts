@@ -34,4 +34,7 @@ export default (app: Application) => {
   router.put('/user/role/:id', controller.permission.user.updateRoleById); //* 更新用户拥有的角色
   router.put('/user/reset/:id', controller.permission.user.modifyPassword); //* 重置用户密码
   router.delete('/user/:id', controller.permission.user.del); //* 删除用户
+
+  //# 字典
+  router.get('/dict/:category', controller.dict.dict.getByCategory); //* 按分类查询字典
 };

@@ -4,6 +4,7 @@
 import 'egg';
 import ExportHome from '../../../app/controller/home';
 import ExportAuthLogin from '../../../app/controller/auth/login';
+import ExportDictDict from '../../../app/controller/dict/dict';
 import ExportMenuMenu from '../../../app/controller/menu/menu';
 import ExportPermissionResource from '../../../app/controller/permission/resource';
 import ExportPermissionRole from '../../../app/controller/permission/role';
@@ -14,6 +15,9 @@ declare module 'egg' {
     home: ExportHome;
     auth: {
       login: ExportAuthLogin;
+    }
+    dict: {
+      dict: ExportDictDict;
     }
     menu: {
       menu: ExportMenuMenu;

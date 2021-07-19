@@ -34,6 +34,30 @@ export default class LawCaseController extends Controller {
         }
     }
 
+
+    /**
+     * 查询案件存在数量
+     */
+    public async countByCaseName() {
+        const { ctx } = this;
+        const { case_name } = ctx.params;
+
+        try {
+            const [data] = await ctx.service.lawCase.lawCase.countByUserName(case_name);
+            ctx.body = {
+                code: 0,
+                error: null,
+                data
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                error,
+                data: null
+            }
+        }
+    }
+
     /**
      * 添加案件
      */

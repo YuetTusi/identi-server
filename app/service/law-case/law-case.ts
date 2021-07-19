@@ -56,6 +56,17 @@ export default class LawCaseService extends Service {
     }
 
     /**
+     * 查询案件存在数量（验证增加重名验证）
+     * @param case_name 案件名称
+     */
+    public async countByUserName(case_name: string) {
+        const { mysql } = this.app;
+        const COUNT_CASENAME = 'SELECT count(*) AS "count" FROM law_case WHERE case_name=?';
+
+        return await mysql.query(COUNT_CASENAME, [case_name]);
+    }
+
+    /**
      * 添加案件
      * @param data 案件数据
      */

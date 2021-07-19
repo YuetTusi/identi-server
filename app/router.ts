@@ -38,6 +38,7 @@ export default (app: Application) => {
 
   //# 案件管理
   router.post('/law-case/list', controller.lawCase.lawCase.findByPage); //* 查询案件
+  router.get('/law-case/count/:case_name', controller.lawCase.lawCase.countByCaseName); //* 查询案件存在数量
   router.post('/law-case', controller.lawCase.lawCase.insert); //* 添加案件
 
   //# 字典

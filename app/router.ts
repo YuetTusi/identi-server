@@ -37,11 +37,12 @@ export default (app: Application) => {
   router.delete('/user/:id', controller.permission.user.del); //* 删除用户
 
   //# 案件管理
-  router.get('/law-case/:id', controller.lawCase.lawCase.findById); //* 按id查询案件
-  router.post('/law-case/list', controller.lawCase.lawCase.findByPage); //* 查询案件
-  router.get('/law-case/count/:case_name', controller.lawCase.lawCase.countByCaseName); //* 查询案件存在数量
-  router.post('/law-case', controller.lawCase.lawCase.insert); //* 添加案件
-  router.put('/law-case/:id', controller.lawCase.lawCase.update); //* 更新案件
+  router.get('/law-case/:id', controller.permission.lawCase.findById); //* 按id查询案件
+  router.post('/law-case/list', controller.permission.lawCase.findByPage); //* 查询案件
+  router.get('/law-case/count/:case_name', controller.permission.lawCase.countByCaseName); //* 查询案件存在数量
+  router.post('/law-case', controller.permission.lawCase.insert); //* 添加案件
+  router.put('/law-case/:id', controller.permission.lawCase.update); //* 更新案件
+  router.delete('/law-case/:id', controller.permission.lawCase.del); //* 删除案件
 
   //# 字典
   router.get('/dict/:category', controller.dict.dict.getByCategory); //* 按分类查询字典

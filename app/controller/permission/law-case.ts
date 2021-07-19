@@ -12,7 +12,7 @@ export default class LawCaseController extends Controller {
         const { ctx } = this;
         const { id } = ctx.params;
         try {
-            const data = await ctx.service.lawCase.lawCase.findById(id);
+            const data = await ctx.service.permission.lawCase.findById(id);
             ctx.body = {
                 code: 0,
                 data: data.length > 0 ? data[0] : null,
@@ -35,7 +35,7 @@ export default class LawCaseController extends Controller {
         const { condition, pageIndex, pageSize } = ctx.request.body;
 
         try {
-            const [data, total] = await ctx.service.lawCase.lawCase.findByPage(condition, Number(pageIndex), Number(pageSize));
+            const [data, total] = await ctx.service.permission.lawCase.findByPage(condition, Number(pageIndex), Number(pageSize));
             ctx.body = {
                 code: 0,
                 data: {
@@ -65,7 +65,7 @@ export default class LawCaseController extends Controller {
         const { case_name } = ctx.params;
 
         try {
-            const [data] = await ctx.service.lawCase.lawCase.countByUserName(case_name);
+            const [data] = await ctx.service.permission.lawCase.countByUserName(case_name);
             ctx.body = {
                 code: 0,
                 error: null,
@@ -88,7 +88,7 @@ export default class LawCaseController extends Controller {
         const { form } = ctx.request.body;
 
         try {
-            const affectedRows = await service.lawCase.lawCase.insert(form);
+            const affectedRows = await service.permission.lawCase.insert(form);
 
             ctx.body = {
                 code: 0,
@@ -115,7 +115,7 @@ export default class LawCaseController extends Controller {
 
         form.id = id;
         try {
-            const affectedRows = await ctx.service.lawCase.lawCase.update(form);
+            const affectedRows = await ctx.service.permission.lawCase.update(form);
             ctx.body = {
                 code: 0,
                 error: null,
@@ -127,6 +127,37 @@ export default class LawCaseController extends Controller {
                 code: 1,
                 error,
                 data: 0//影响行数
+            }
+        }
+    }
+
+    /**
+     * 删除案件
+     */
+    public async del() {
+        const { ctx } = this;
+        const { id } = ctx.params;
+
+        try {
+            const { success }: { success: boolean } = await ctx.service.permission.lawCase.del(id);
+            if (success) {
+                ctx.body = {
+                    code: 0,
+                    data: { success },
+                    error: null
+                }
+            } else {
+                ctx.body = {
+                    code: 0,
+                    data: { success: false },
+                    error: null
+                }
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                data: { success: false },
+                error
             }
         }
     }

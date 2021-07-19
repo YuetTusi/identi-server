@@ -8,6 +8,34 @@ export default class LawCaseService extends Service {
     private tableName = 'law_case';
 
     /**
+     * 按id查询
+     * @param id 案件id
+     */
+    public async findById(id: string) {
+        const { mysql } = this.app;
+        return await mysql.get(this.tableName, { id }, {
+            columns: [
+                'id',
+                'check_id',
+                'identi_id',
+                'state',
+                'case_name',
+                'check_unit_name',
+                'officer_no',
+                'officer_name',
+                'security_case_no',
+                'security_case_type',
+                'security_case_name',
+                'handle_case_no',
+                'handle_case_type',
+                'handle_case_name',
+                'create_time',
+                'update_time'
+            ]
+        });
+    }
+
+    /**
      * 分页查询
      * @param condition 条件
      * @param pageIndex 当前页
@@ -74,6 +102,17 @@ export default class LawCaseService extends Service {
         const { mysql } = this.app;
         const { affectedRows } = await mysql.insert(this.tableName, data);
 
+        return affectedRows;
+    }
+
+    /**
+     * 编辑案件
+     * @param data 案件数据
+     * @return 影响的行数
+     */
+    async update(data: any) {
+        const { app } = this;
+        const { affectedRows } = await app.mysql.update(this.tableName, data);
         return affectedRows;
     }
 }

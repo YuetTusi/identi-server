@@ -5,10 +5,37 @@ import { Controller } from 'egg';
  */
 export default class LawCaseController extends Controller {
 
+    /**
+     * 分页查询
+     */
+    public async findByPage() {
+        const { ctx } = this;
+        const { condition, pageIndex, pageSize } = ctx.request.body;
+
+        try {
+            const [data, total] = await ctx.service.lawCase.lawCase.findByPage(condition, Number(pageIndex), Number(pageSize));
+            ctx.body = {
+                code: 0,
+                data: {
+                    data,
+                    total: total[0].total
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            ctx.body = {
+                code: 1,
+                error,
+                data: {
+                    data: null,
+                    total: 0
+                }
+            }
+        }
+    }
 
     /**
      * 添加案件
-     * @param data 案件数据
      */
     public async insert() {
         const { ctx, service } = this;

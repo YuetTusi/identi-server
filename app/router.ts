@@ -37,6 +37,7 @@ export default (app: Application) => {
   router.delete('/user/:id', controller.permission.user.del); //* 删除用户
 
   //# 案件管理
+  router.post('/law-case/list', controller.lawCase.lawCase.findByPage); //* 查询案件
   router.post('/law-case', controller.lawCase.lawCase.insert); //* 添加案件
 
   //# 字典

@@ -15,7 +15,7 @@ export default class LawCaseController extends Controller {
             const data = await ctx.service.lawCase.lawCase.findById(id);
             ctx.body = {
                 code: 0,
-                data,
+                data: data.length > 0 ? data[0] : null,
                 error: null
             }
         } catch (error) {

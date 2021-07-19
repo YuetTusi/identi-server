@@ -13,26 +13,17 @@ export default class LawCaseService extends Service {
      */
     public async findById(id: string) {
         const { mysql } = this.app;
-        return await mysql.get(this.tableName, { id }, {
-            columns: [
-                'id',
-                'check_id',
-                'identi_id',
-                'state',
-                'case_name',
-                'check_unit_name',
-                'officer_no',
-                'officer_name',
-                'security_case_no',
-                'security_case_type',
-                'security_case_name',
-                'handle_case_no',
-                'handle_case_type',
-                'handle_case_name',
-                'create_time',
-                'update_time'
-            ]
-        });
+
+        const SELECT_BY_ID = `SELECT 
+        c.id,c.check_id,c.identi_id,
+        (SELECT concat_ws(' ',u.username,u.realname) FROM user u WHERE u.id=c.check_id) AS check_username,
+        (SELECT concat_ws(' ',u.username,u.realname) FROM user u WHERE u.id=c.identi_id) AS identi_username,
+        c.state,c.case_name,c.check_unit_name,c.officer_no,c.officer_name,c.security_case_no,c.security_case_type,
+        c.security_case_name,c.handle_case_no,c.handle_case_type,c.handle_case_name,c.create_time,c.update_time 
+        FROM law_case c WHERE c.id=?
+        `;
+
+        return await mysql.query(SELECT_BY_ID, [id]);
     }
 
     /**

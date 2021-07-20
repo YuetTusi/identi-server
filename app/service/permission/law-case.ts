@@ -114,13 +114,12 @@ export default class LawCaseService extends Service {
     async del(id: string) {
 
         const { mysql } = this.app;
-
-        //TODO: 实现鉴定记录模块后，此处要删除案件相关联的鉴定记录表数据
-        // const DEL_USER_ROLE = 'DELETE FROM user_role WHERE user_id=?';
+        const DEL_CASE_REC = 'DELETE FROM case_rec WHERE case_id=?';
         const DEL_LAWCASE = 'DELETE FROM law_case WHERE id=?';
 
         return await mysql.beginTransactionScope(async (conn) => {
-            await conn.query(DEL_LAWCASE, [id]);
+            await conn.query(DEL_CASE_REC, [id]); //删除案件关联的鉴定记录
+            await conn.query(DEL_LAWCASE, [id]); //删除案件
             return { success: true };
         });
     }

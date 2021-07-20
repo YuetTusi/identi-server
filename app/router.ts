@@ -13,7 +13,7 @@ export default (app: Application) => {
   router.get('/menu/:id', controller.menu.menu.getMenuByUserId); //* 查询登录用户的菜单
 
   //# 我的案件
-  router.post('/default/list',controller.default.default.findByPage);//* 查询我的案件列表
+  router.post('/default/list', controller.default.default.findByPage);//* 查询我的案件列表
   router.get('/default/:id', controller.default.default.findById); //* 按id查询案件
 
   //# 资源查看
@@ -47,6 +47,11 @@ export default (app: Application) => {
   router.post('/law-case', controller.permission.lawCase.insert); //* 添加案件
   router.put('/law-case/:id', controller.permission.lawCase.update); //* 更新案件
   router.delete('/law-case/:id', controller.permission.lawCase.del); //* 删除案件
+
+  //# 案件记录
+  router.get('/rec/law-case/:id', controller.rec.rec.getLastByCaseId); //* 查询案件最近一条记录
+  router.post('/rec', controller.rec.rec.insert); //* 添加案件记录
+  router.post('/rec/append', controller.rec.rec.appendAndChangeState); //* 添加案件记录并更新案件状态
 
   //# 字典
   router.get('/dict/:category', controller.dict.dict.getByCategory); //* 按分类查询字典

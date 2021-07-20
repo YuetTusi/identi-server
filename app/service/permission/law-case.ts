@@ -64,7 +64,7 @@ export default class LawCaseService extends Service {
         c.security_case_name,c.handle_case_no,c.handle_case_type,c.handle_case_name,c.create_time,c.update_time 
         FROM law_case c 
         WHERE 1=1 ${sqlCondition} 
-        ORDER BY c.create_time DESC 
+        ORDER BY c.create_time DESC,c.update_time DESC 
         LIMIT ? OFFSET ?`;
         const FIND_TOTAL_ROW = `SELECT count(*) as 'total' FROM law_case c WHERE 1=1 ${sqlCondition}`;
 

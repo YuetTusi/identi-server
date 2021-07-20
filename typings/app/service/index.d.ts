@@ -14,6 +14,7 @@ import ExportPermissionLawCase from '../../../app/service/permission/law-case';
 import ExportPermissionResource from '../../../app/service/permission/resource';
 import ExportPermissionRole from '../../../app/service/permission/role';
 import ExportPermissionUser from '../../../app/service/permission/user';
+import ExportRecRec from '../../../app/service/rec/rec';
 
 declare module 'egg' {
   interface IService {
@@ -32,6 +33,9 @@ declare module 'egg' {
       resource: AutoInstanceType<typeof ExportPermissionResource>;
       role: AutoInstanceType<typeof ExportPermissionRole>;
       user: AutoInstanceType<typeof ExportPermissionUser>;
+    }
+    rec: {
+      rec: AutoInstanceType<typeof ExportRecRec>;
     }
   }
 }

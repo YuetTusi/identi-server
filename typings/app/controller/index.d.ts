@@ -11,6 +11,7 @@ import ExportPermissionLawCase from '../../../app/controller/permission/law-case
 import ExportPermissionResource from '../../../app/controller/permission/resource';
 import ExportPermissionRole from '../../../app/controller/permission/role';
 import ExportPermissionUser from '../../../app/controller/permission/user';
+import ExportRecRec from '../../../app/controller/rec/rec';
 
 declare module 'egg' {
   interface IController {
@@ -32,6 +33,9 @@ declare module 'egg' {
       resource: ExportPermissionResource;
       role: ExportPermissionRole;
       user: ExportPermissionUser;
+    }
+    rec: {
+      rec: ExportRecRec;
     }
   }
 }

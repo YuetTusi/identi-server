@@ -4,6 +4,7 @@
 import 'egg';
 import ExportHome from '../../../app/controller/home';
 import ExportAuthLogin from '../../../app/controller/auth/login';
+import ExportDefaultDefault from '../../../app/controller/default/default';
 import ExportDictDict from '../../../app/controller/dict/dict';
 import ExportMenuMenu from '../../../app/controller/menu/menu';
 import ExportPermissionLawCase from '../../../app/controller/permission/law-case';
@@ -16,6 +17,9 @@ declare module 'egg' {
     home: ExportHome;
     auth: {
       login: ExportAuthLogin;
+    }
+    default: {
+      default: ExportDefaultDefault;
     }
     dict: {
       dict: ExportDictDict;

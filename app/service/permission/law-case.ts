@@ -57,7 +57,7 @@ export default class LawCaseService extends Service {
         }
 
         const FIND_PAGE = `SELECT 
-        c.id,
+        c.id,c.identi_id,c.check_id,
         (SELECT concat_ws(' ',u.username,u.realname) FROM user u WHERE u.id=c.check_id) AS check_username,
         (SELECT concat_ws(' ',u.username,u.realname) FROM user u WHERE u.id=c.identi_id) AS identi_username,
         c.state,c.case_name,c.check_unit_name,c.officer_no,c.officer_name,c.security_case_no,c.security_case_type,

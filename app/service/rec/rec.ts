@@ -35,24 +35,27 @@ export default class RecService extends Service {
     }
 
     /**
-     * 增加案件记录并更新案件状态
+     * 增加案件记录并更新案件
+     * @param recData 鉴定记录数据
+     * @param lawCaseData 案件数据
      */
-    public async appendAndChangeState(data: any, state: number) {
+    public async appendAndChangeCase(recData: any, lawCaseData: any) {
 
         const { mysql } = this.app;
-        const APPEND_REC = `INSERT INTO case_rec (id,case_id,rec_time,rec_place,suggest,action_note,action_time,create_time,update_time) 
+        const APPEND_REC = `INSERT INTO case_rec 
+            (id,case_id,rec_time,rec_place,suggest,action_note,action_time,create_time,update_time) 
             VALUES (?,?,?,?,?,?,?,?,?)`;
         const appendParams = [
-            data.id, data.case_id, data.rec_time, data.rec_place,
-            data.suggest, data.action_note, data.action_time,
-            data.create_time, data.update_time
+            recData.id, recData.case_id, recData.rec_time, recData.rec_place,
+            recData.suggest, recData.action_note, recData.action_time,
+            recData.create_time, recData.update_time
         ];
-        const UPDATE_CASE_STATE = `UPDATE law_case set state=? WHERE id=?`;
-        const updateStateParams = [state, data.case_id];
+        const UPDATE_CASE = `UPDATE law_case set check_id=?,identi_id=?,state=? WHERE id=?`;
+        const updateCaseParams = [lawCaseData.check_id, lawCaseData.identi_id, lawCaseData.state, lawCaseData.id];
 
         return await mysql.beginTransactionScope(async (conn) => {
             await conn.query(APPEND_REC, appendParams);
-            await conn.query(UPDATE_CASE_STATE, updateStateParams);
+            await conn.query(UPDATE_CASE, updateCaseParams);
             return { success: true };
         });
     }

@@ -52,7 +52,7 @@ export default (app: Application) => {
   //# 案件记录
   router.get('/rec/law-case/:id', controller.rec.rec.getLastByCaseId); //* 查询案件最近一条记录
   router.post('/rec', controller.rec.rec.insert); //* 添加案件记录
-  router.post('/rec/append', controller.rec.rec.appendAndChangeState); //* 添加案件记录并更新案件状态
+  router.post('/rec/append', controller.rec.rec.appendAndChangeCase); //* 添加案件记录并更新案件
 
   //# 字典
   router.get('/dict/:category', controller.dict.dict.getByCategory); //* 按分类查询字典

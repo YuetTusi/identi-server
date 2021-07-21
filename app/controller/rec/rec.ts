@@ -59,15 +59,16 @@ export default class RecController extends Controller {
     }
 
     /**
-     * 增加记录并更新案件状态
+     * 增加记录并更新案件
      */
-    public async appendAndChangeState() {
+    public async appendAndChangeCase() {
         const { service } = this.ctx;
         const { form } = this.ctx.request.body;
 
         try {
-            const success: boolean = await service.rec.rec.appendAndChangeState(form, form.state)
-            // const success=true;
+            const success: boolean = await service.rec.rec
+                .appendAndChangeCase(form.caseRec, form.lawCase)
+
             this.ctx.body = {
                 code: 0,
                 data: success,

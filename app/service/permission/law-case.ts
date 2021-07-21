@@ -108,6 +108,25 @@ export default class LawCaseService extends Service {
     }
 
     /**
+     * 更新案件状态
+     * @param id 案件id
+     * @param state 案件状态
+     * @returns 影响的行数
+     */
+    async updateState(id: string, state: number) {
+        const { mysql } = this.app;
+        const prev = await mysql.get(this.tableName, { id });
+        console.log(prev);
+        if (prev === null) {
+            return 0;
+        } else {
+            const next = { ...prev, state };
+            const { affectedRows } = await mysql.update(this.tableName, next, { where: { id } });
+            return affectedRows;
+        }
+    }
+
+    /**
      * 删除案件
      * @param id 案件id 
      */

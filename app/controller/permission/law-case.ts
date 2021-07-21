@@ -132,6 +132,32 @@ export default class LawCaseController extends Controller {
     }
 
     /**
+     * 更新案件状态
+     * @returns 返回影响行数
+     */
+    public async updateState() {
+        const { ctx } = this;
+        const { id } = ctx.params;
+        const { form } = ctx.request.body;
+
+        try {
+            const affectedRows = await ctx.service.permission.lawCase.updateState(id, form.state);
+            ctx.body = {
+                code: 0,
+                error: null,
+                data: affectedRows //影响行数
+            }
+        } catch (error) {
+            console.log(error);
+            ctx.body = {
+                code: 1,
+                error,
+                data: 0//影响行数
+            }
+        }
+    }
+
+    /**
      * 删除案件
      */
     public async del() {

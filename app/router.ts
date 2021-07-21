@@ -18,9 +18,9 @@ export default (app: Application) => {
 
   //# 资源查看
   router.get('/resource', controller.permission.resource.getAll); //* 查询所有资源
-  router.post('/resource/list', controller.permission.resource.findByPage); //* 资源查看
   router.get('/resource/level', controller.permission.resource.getResourceWithLevel); //* 查询所有资源，按层级返回
   router.get('/resource/role/:id', controller.permission.resource.getResourceByRoleId);//* 按用户id查询拥有的资源
+  router.post('/resource/list', controller.permission.resource.findByPage); //* 资源查看
 
   //# 角色管理
   router.get('/role', controller.permission.role.getAll); //* 查询全部角色
@@ -42,10 +42,11 @@ export default (app: Application) => {
 
   //# 案件管理
   router.get('/law-case/:id', controller.permission.lawCase.findById); //* 按id查询案件
-  router.post('/law-case/list', controller.permission.lawCase.findByPage); //* 查询案件
   router.get('/law-case/count/:case_name', controller.permission.lawCase.countByCaseName); //* 查询案件存在数量
+  router.post('/law-case/list', controller.permission.lawCase.findByPage); //* 查询案件
   router.post('/law-case', controller.permission.lawCase.insert); //* 添加案件
   router.put('/law-case/:id', controller.permission.lawCase.update); //* 更新案件
+  router.put('/law-case/state/:id', controller.permission.lawCase.updateState); //* 更新案件状态
   router.delete('/law-case/:id', controller.permission.lawCase.del); //* 删除案件
 
   //# 案件记录

@@ -3,13 +3,12 @@ import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>;
 
-  // override config from framework / plugin
-  // use for cookie sign key, should change to your own and keep security
+  //# 应用Key
   config.keys = 'az_identi';
 
   //# 中间件配置
   config.middleware = [
-    // 'auth'
+    'auth'
   ];
 
   //# login中间件参数
@@ -40,22 +39,24 @@ export default (appInfo: EggAppInfo) => {
     agent: false,
   };
 
-  //配置CORS
+  //# 配置CORS
   config.cors = {
     // origin: '*',
     // allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
   }
   config.security = {
     csrf: { enable: false },
-    domainWhiteList: ['http://localhost:8085', 'http://127.0.0.1:8085'],
+    domainWhiteList: [
+      'http://localhost:8085',
+      'http://127.0.0.1:8085'
+    ] //跨域白名单
   }
 
-  // add your special config in here
+  // 业务配置
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
   };
 
-  // the return config will combines to EggAppConfig
   return {
     ...config,
     ...bizConfig,

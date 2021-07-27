@@ -9,7 +9,7 @@ export default () => {
 
   //# 中间件配置
   config.middleware = [
-    // 'auth'
+    'auth'
   ];
 
   //# login中间件参数
@@ -47,7 +47,9 @@ export default () => {
   }
   config.security = {
     csrf: { enable: false },
-    domainWhiteList: ['http://localhost:8085', 'http://127.0.0.1:8085'],
+    domainWhiteList: [
+      'http://192.168.1.11:9010'
+    ],
   }
 
   // add your special config in here

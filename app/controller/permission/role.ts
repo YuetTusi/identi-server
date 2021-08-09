@@ -5,6 +5,31 @@ import { Controller } from 'egg';
  */
 export default class ResourceController extends Controller {
 
+
+    /**
+     * 添加角色
+     */
+    public async create() {
+
+        const { ctx } = this;
+        const { service } = ctx;
+        try {
+            const affectedRows = await service.permission.role.create(ctx.request.body);
+            ctx.body = {
+                code: 0,
+                data: affectedRows > 0,
+                error: null
+            }
+        } catch (error) {
+            console.log(error);
+            ctx.body = {
+                code: 1,
+                data: false,
+                error
+            }
+        }
+    }
+
     /**
      * 更新角色分配的资源
      */
@@ -105,6 +130,29 @@ export default class ResourceController extends Controller {
                 code: 1,
                 error,
                 data: null
+            }
+        }
+    }
+
+    /**
+     * 删除角色
+     */
+    public async del() {
+
+        const { ctx } = this;
+        const { service } = ctx;
+        try {
+            const success = await service.permission.role.del(ctx.params.id);
+            ctx.body = {
+                code: 0,
+                data: success,
+                error: null
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                data: false,
+                error
             }
         }
     }

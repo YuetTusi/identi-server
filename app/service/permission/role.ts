@@ -11,6 +11,12 @@ class RoleService extends Service {
         super(props);
     }
 
+    async create(data: any) {
+        const { mysql } = this.app;
+        const { affectedRows } = await mysql.insert(this.tableName, data);
+        return affectedRows;
+    }
+
     /**
      * 更新当前角色的资源
      * @param id 角色id
@@ -78,6 +84,7 @@ class RoleService extends Service {
         SELECT r.id,r.name,r.desc, r.create_time,r.update_time 
         FROM role r
         WHERE 1=1
+        ORDER BY r.create_time DESC
         LIMIT ? OFFSET ?
         `;
         const FIND_TOTAL_ROW = `SELECT count(*) as 'total' FROM role WHERE 1=1`;
@@ -98,6 +105,23 @@ class RoleService extends Service {
             columns: ['id', 'name', 'desc', 'create_time', 'update_time']
         });
         return data;
+    }
+
+    /**
+     * 删除角色
+     * @param id 角色id
+     */
+    async del(id: string) {
+        const { mysql } = this.app;
+
+        const DEL_ROLE_RESOURCE = 'DELETE FROM role_resource WHERE role_id=?';
+        const DEL_ROLE = 'DELETE FROM role WHERE id=?';
+
+        return await mysql.beginTransactionScope(async (conn) => {
+            await conn.query(DEL_ROLE_RESOURCE, [id]);
+            await conn.query(DEL_ROLE, [id]);
+            return { success: true };
+        });
     }
 }
 

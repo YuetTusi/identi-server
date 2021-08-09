@@ -19,6 +19,7 @@ export default (app: Application) => {
   //# 资源查看
   router.get('/resource', controller.permission.resource.getAll); //* 查询所有资源
   router.get('/resource/level', controller.permission.resource.getResourceWithLevel); //* 查询所有资源，按层级返回
+  router.get('/resource/has-parent', controller.permission.resource.getResourceHasParent); //* 查询有上级资源的数据
   router.get('/resource/role/:id', controller.permission.resource.getResourceByRoleId);//* 按用户id查询拥有的资源
   router.post('/resource/list', controller.permission.resource.findByPage); //* 资源查看
 

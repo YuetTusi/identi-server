@@ -43,6 +43,21 @@ class ResourceService extends Service {
     }
 
     /**
+     * 查询有上级资源的resource记录
+     * @returns 
+     */
+    async getResourceHasParent() {
+        const { mysql } = this.app;
+        const SQL = `SELECT id,pid,name,\`key\`,type,level,seq,create_time,update_time
+        FROM resource
+        WHERE level<>2
+        ORDER BY level ASC,seq ASC`;
+
+        const data = await mysql.query(SQL);
+        return data;
+    }
+
+    /**
      * 分页查询
      * @param pageIndex 当前页
      * @param pageSize 页尺寸

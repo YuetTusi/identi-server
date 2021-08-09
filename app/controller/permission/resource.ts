@@ -50,6 +50,27 @@ export default class ResourceController extends Controller {
     }
 
     /**
+     * 查询有上级资源的数据（绑定Select）
+     */
+    public async getResourceHasParent() {
+        const { ctx } = this;
+        try {
+            const data = await ctx.service.permission.resource.getResourceHasParent();
+            ctx.body = {
+                code: 0,
+                error: null,
+                data
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                error,
+                data: null
+            }
+        }
+    }
+
+    /**
      * 查询全部
      */
     public async getAll() {

@@ -8,7 +8,7 @@ export default (appInfo: EggAppInfo) => {
 
   //# 中间件配置
   config.middleware = [
-    'auth'
+    // 'auth'
   ];
 
   //# login中间件参数
@@ -38,19 +38,6 @@ export default (appInfo: EggAppInfo) => {
     // 是否加载到 agent 上，默认关闭
     agent: false,
   };
-
-  //# 配置CORS
-  config.cors = {
-    // origin: '*',
-    // allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
-  }
-  config.security = {
-    csrf: { enable: false },
-    domainWhiteList: [
-      'http://localhost:8085',
-      'http://127.0.0.1:8085'
-    ] //跨域白名单
-  }
 
   // 业务配置
   const bizConfig = {

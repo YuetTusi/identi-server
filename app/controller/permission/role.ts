@@ -149,10 +149,19 @@ export default class ResourceController extends Controller {
                 error: null
             }
         } catch (error) {
-            ctx.body = {
-                code: 1,
-                data: false,
-                error
+            const { errno } = error;
+            if (errno === 1217 || errno === 1451) {
+                ctx.body = {
+                    code: 2,
+                    data: false,
+                    error
+                };
+            } else {
+                ctx.body = {
+                    code: 1,
+                    data: false,
+                    error
+                };
             }
         }
     }

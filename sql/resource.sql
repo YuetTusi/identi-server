@@ -19,3 +19,6 @@ CREATE TABLE `resource` (
   `col9` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源/权限表';
+
+TRUNCATE TABLE `resource`;
+

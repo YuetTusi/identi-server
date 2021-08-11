@@ -3,6 +3,7 @@
 
 import 'egg';
 import ExportHome from '../../../app/controller/home';
+import ExportAttachmentUpload from '../../../app/controller/attachment/upload';
 import ExportAuthLogin from '../../../app/controller/auth/login';
 import ExportDefaultDefault from '../../../app/controller/default/default';
 import ExportDictDict from '../../../app/controller/dict/dict';
@@ -16,6 +17,9 @@ import ExportRecRec from '../../../app/controller/rec/rec';
 declare module 'egg' {
   interface IController {
     home: ExportHome;
+    attachment: {
+      upload: ExportAttachmentUpload;
+    }
     auth: {
       login: ExportAuthLogin;
     }

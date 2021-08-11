@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import { JwtPayload, sign, verify } from 'jsonwebtoken';
 
 export default {
@@ -73,5 +74,12 @@ export default {
             }
         }
         return menu;
+    },
+    /**
+     * 生成新UUID
+     * @returns UUID
+     */
+    newId() {
+        return v4().replace(/\-/g, '');
     }
 }

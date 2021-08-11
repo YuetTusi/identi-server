@@ -39,6 +39,15 @@ export default (appInfo: EggAppInfo) => {
     agent: false,
   };
 
+  config.multipart = {
+    fileSize: '524288mb',
+    // fileSize: '1mb',
+    fileExtensions: [
+      '.txt',
+      '.mkv',
+    ]
+  };
+
   // 业务配置
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,

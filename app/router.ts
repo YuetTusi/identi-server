@@ -59,4 +59,7 @@ export default (app: Application) => {
 
   //# 字典
   router.get('/dict/:category', controller.dict.dict.getByCategory); //* 按分类查询字典
+
+  //# 附件
+  router.post('/attachment/upload', controller.attachment.upload.doUpload); //* 上传附件
 };

@@ -11,7 +11,8 @@ export default () => {
   config.security = {
     csrf: { enable: false },
     domainWhiteList: [
-      'http://192.168.1.11:9010'
+      'http://127.0.0.1:9010',
+      'http://192.168.1.12:9010'
     ],
   }
 

@@ -1,3 +1,4 @@
+import { unlink } from 'fs';
 import { v4 } from 'uuid';
 import { JwtPayload, sign, verify } from 'jsonwebtoken';
 
@@ -81,5 +82,20 @@ export default {
      */
     newId() {
         return v4().replace(/\-/g, '');
+    },
+    /**
+     * 删除文件
+     * @param filePath 文件位置
+     */
+    delFile(filePath: string) {
+        return new Promise((resolve, reject) => {
+            unlink(filePath, (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(void 0);
+                }
+            });
+        });
     }
 }

@@ -57,9 +57,15 @@ export default (app: Application) => {
   router.post('/rec', controller.rec.rec.insert); //* 添加案件记录
   router.post('/rec/append', controller.rec.rec.appendAndChangeCase); //* 添加案件记录并更新案件
 
-  //# 字典
-  router.get('/dict/:category', controller.dict.dict.getByCategory); //* 按分类查询字典
+  //# 附件记录
+  router.post('/case-attach/list', controller.caseAttach.caseAttach.findByPage); //* 分页查询
+  router.post('/case-attach', controller.caseAttach.caseAttach.insert); //* 添加附件记录
+  router.delete('/case-attach', controller.caseAttach.caseAttach.del); //* 删除附件记录
 
   //# 附件
+  router.get('/attachment/download', controller.attachment.download.doDownload); //* 下载附件
   router.post('/attachment/upload', controller.attachment.upload.doUpload); //* 上传附件
+
+  //# 字典
+  router.get('/dict/:category', controller.dict.dict.getByCategory); //* 按分类查询字典
 };

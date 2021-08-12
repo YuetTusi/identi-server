@@ -3,8 +3,10 @@
 
 import 'egg';
 import ExportHome from '../../../app/controller/home';
+import ExportAttachmentDownload from '../../../app/controller/attachment/download';
 import ExportAttachmentUpload from '../../../app/controller/attachment/upload';
 import ExportAuthLogin from '../../../app/controller/auth/login';
+import ExportCaseAttachCaseAttach from '../../../app/controller/case-attach/case-attach';
 import ExportDefaultDefault from '../../../app/controller/default/default';
 import ExportDictDict from '../../../app/controller/dict/dict';
 import ExportMenuMenu from '../../../app/controller/menu/menu';
@@ -18,10 +20,14 @@ declare module 'egg' {
   interface IController {
     home: ExportHome;
     attachment: {
+      download: ExportAttachmentDownload;
       upload: ExportAttachmentUpload;
     }
     auth: {
       login: ExportAuthLogin;
+    }
+    caseAttach: {
+      caseAttach: ExportCaseAttachCaseAttach;
     }
     default: {
       default: ExportDefaultDefault;

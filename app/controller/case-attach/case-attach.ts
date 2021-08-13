@@ -9,7 +9,6 @@ export default class CaseAttachController extends Controller {
         super(props);
     }
 
-
     /**
      * 分页查询
      */
@@ -104,7 +103,7 @@ export default class CaseAttachController extends Controller {
                 error: null
             }
         } catch (error) {
-            console.log(error);
+            ctx.logger.error(`删除附件记录失败 @controller/case-attach/case-attach/del`, error);
             ctx.body = {
                 code: 1,
                 data: 0,

@@ -13,6 +13,9 @@ function task(reader: any, writer: WriteStream) {
     });
 }
 
+/**
+ * 附件上传
+ */
 export default class UploadController extends Controller {
 
     constructor(props: any) {
@@ -25,21 +28,18 @@ export default class UploadController extends Controller {
     async doUpload() {
 
         const { ctx } = this;
-        // const { querystring } = ctx.request;
         const hashname = ctx.helper.newId();
         const reader = await ctx.getFileStream();
         const ext = extname(reader.filename)
         const writer = createWriteStream(`attachment/${hashname}${ext}`);
 
-        // console.log('原文件名:', reader.filename);
-        // console.log('存储在:', `attachment/${hashname}${ext}`);
-        // console.log('参数:', querystring);
-        // console.log(JSON.stringify(reader.fields)); //获取FormData额外参数
+        ctx.logger.info(`上传附件${reader.filename},哈希文件名:${hashname + ext}`);
 
         try {
             await task(reader, writer);
             ctx.status = 200;
         } catch (error) {
+            ctx.logger.error('写入附件失败 @controller/attachment/upload/doUpload', error);
             ctx.status = 500;
         } finally {
             ctx.body = {

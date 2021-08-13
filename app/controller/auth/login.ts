@@ -89,7 +89,7 @@ class LoginController extends Controller {
                 }
             }
         } catch (error) {
-            console.log(error.message);
+            ctx.logger.error('用户登录失败 @controller/auth/login/valid', error);
             ctx.body = {
                 code: 1,
                 success: false,

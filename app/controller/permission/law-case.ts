@@ -44,7 +44,7 @@ export default class LawCaseController extends Controller {
                 }
             }
         } catch (error) {
-            console.log(error);
+            ctx.logger.error(`案件分页查询失败 @controller/permission/law-case/findByPage`, error);
             ctx.body = {
                 code: 1,
                 error,
@@ -72,6 +72,7 @@ export default class LawCaseController extends Controller {
                 data
             }
         } catch (error) {
+            ctx.logger.error(`案件重名验证失败(caseName:${case_name}) @controller/permission/law-case/countByCaseName`, error);
             ctx.body = {
                 code: 1,
                 error,
@@ -96,7 +97,7 @@ export default class LawCaseController extends Controller {
                 error: null
             }
         } catch (error) {
-            console.log(error);
+            ctx.logger.error(`添加案件失败 @controller/permission/law-case/insert`, error);
             ctx.body = {
                 code: 1,
                 data: 0,
@@ -122,7 +123,7 @@ export default class LawCaseController extends Controller {
                 data: affectedRows //影响行数
             }
         } catch (error) {
-            console.log(error);
+            ctx.logger.error(`更新案件失败(id:${id}) @controller/permission/law-case/update`, error);
             ctx.body = {
                 code: 1,
                 error,
@@ -148,7 +149,7 @@ export default class LawCaseController extends Controller {
                 data: affectedRows //影响行数
             }
         } catch (error) {
-            console.log(error);
+            ctx.logger.error(`更新案件状态失败(id:${id}) @controller/permission/law-case/updateState`, error);
             ctx.body = {
                 code: 1,
                 error,
@@ -180,6 +181,7 @@ export default class LawCaseController extends Controller {
                 }
             }
         } catch (error) {
+            ctx.logger.error(`删除案件失败(id:${id}) @controller/permission/law-case/del`, error);
             ctx.body = {
                 code: 1,
                 data: { success: false },

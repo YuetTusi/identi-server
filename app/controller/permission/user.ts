@@ -250,6 +250,7 @@ export default class UserController extends Controller {
                 }
             }
         } catch (error) {
+            ctx.logger.error(`删除用户失败(id:${id}) @controller/permission/user/del`, error);
             ctx.body = {
                 code: 1,
                 data: { success: false },

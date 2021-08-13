@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { Service } from 'egg';
 
 /**
@@ -133,10 +134,24 @@ export default class LawCaseService extends Service {
     async del(id: string) {
 
         const { mysql } = this.app;
+        const { helper } = this.ctx;
+        const DEL_CASE_ATTACH = 'DELETE FROM attachment WHERE case_id=?';
         const DEL_CASE_REC = 'DELETE FROM case_rec WHERE case_id=?';
         const DEL_LAWCASE = 'DELETE FROM law_case WHERE id=?';
 
+        const attachList: any[] = await mysql.select('attachment', {
+            where: { case_id: id },
+            columns: ['hash_name']
+        });
+
+        await helper.batchDelFile(
+            attachList.map(i =>
+                resolve(process.cwd(), './attachment/', i.hash_name)
+            )
+        ); //批量删除案件关联所有附件
+
         return await mysql.beginTransactionScope(async (conn) => {
+            await conn.query(DEL_CASE_ATTACH, [id]); //删除案件关联的附件记录
             await conn.query(DEL_CASE_REC, [id]); //删除案件关联的鉴定记录
             await conn.query(DEL_LAWCASE, [id]); //删除案件
             return { success: true };

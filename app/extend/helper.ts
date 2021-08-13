@@ -101,16 +101,28 @@ export default {
     /**
      * 删除文件
      * @param filePath 文件位置
+     * @param force 开启强制，若文件不存在不会抛出error
      */
-    delFile(filePath: string) {
-        return new Promise<undefined>((resolve, reject) => {
+    delFile(filePath: string, force: boolean = false) {
+        return new Promise<boolean>((resolve, reject) => {
             unlink(filePath, (err) => {
                 if (err) {
-                    reject(err);
+                    if (force) {
+                        resolve(false);
+                    } else {
+                        reject(err);
+                    }
                 } else {
-                    resolve(void 0);
+                    resolve(true);
                 }
             });
         });
+    },
+    /**
+     * 批量删除文件
+     * @param filePath 文件位置集合
+     */
+    batchDelFile(filePath: string[] = []) {
+        return Promise.all(filePath.map(i => this.delFile(i, true)));
     }
 }

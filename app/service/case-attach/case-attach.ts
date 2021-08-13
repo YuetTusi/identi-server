@@ -47,6 +47,19 @@ export default class CaseAttachService extends Service {
     }
 
     /**
+     * 查询案件所有附件
+     * @param caseId 案件id
+     */
+    async all(caseId: string) {
+        const { mysql } = this.app;
+        return await mysql.select(this.tableName, {
+            columns: ['id', 'case_id', 'hash_name', 'file_name', 'create_time', 'update_time'],
+            where: { case_id: caseId },
+            orders: [['create_time', 'desc']]
+        })
+    }
+
+    /**
      * 插入附件记录
      * @param data 附件记录
      * @returns 影响行数
@@ -66,10 +79,15 @@ export default class CaseAttachService extends Service {
     async del(data: any) {
 
         const { id, hash_name } = data;
+        const { helper } = this.ctx;
         const { mysql } = this.app;
+
         const attachPath = resolve(process.cwd(), './attachment/', hash_name);
-        // console.log(attachPath);
-        await this.ctx.helper.delFile(attachPath);//删除文件
+        const exist = await helper.fileExist(attachPath);
+
+        if (exist) {
+            await helper.delFile(attachPath);//删除文件
+        }
         const { affectedRows }: { affectedRows: number } = await mysql.delete(this.tableName, { id });
         return affectedRows;
     }

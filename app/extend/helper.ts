@@ -1,4 +1,4 @@
-import { unlink } from 'fs';
+import { access, unlink } from 'fs';
 import { v4 } from 'uuid';
 import { JwtPayload, sign, verify } from 'jsonwebtoken';
 
@@ -84,11 +84,26 @@ export default {
         return v4().replace(/\-/g, '');
     },
     /**
+     * 验证文件是否存在
+     * @param filePath 文件位置
+     */
+    fileExist(filePath: string) {
+        return new Promise<boolean>((resolve) => {
+            access(filePath, (err) => {
+                if (err) {
+                    resolve(false);
+                } else {
+                    resolve(true);
+                }
+            });
+        })
+    },
+    /**
      * 删除文件
      * @param filePath 文件位置
      */
     delFile(filePath: string) {
-        return new Promise((resolve, reject) => {
+        return new Promise<undefined>((resolve, reject) => {
             unlink(filePath, (err) => {
                 if (err) {
                     reject(err);

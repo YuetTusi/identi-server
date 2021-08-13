@@ -58,6 +58,7 @@ export default (app: Application) => {
   router.post('/rec/append', controller.rec.rec.appendAndChangeCase); //* 添加案件记录并更新案件
 
   //# 附件记录
+  router.get('/case-attach/case/:id', controller.caseAttach.caseAttach.all); //* 查询案件全部附件
   router.post('/case-attach/list', controller.caseAttach.caseAttach.findByPage); //* 分页查询
   router.post('/case-attach', controller.caseAttach.caseAttach.insert); //* 添加附件记录
   router.delete('/case-attach', controller.caseAttach.caseAttach.del); //* 删除附件记录

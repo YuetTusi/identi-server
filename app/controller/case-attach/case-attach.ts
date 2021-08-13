@@ -65,6 +65,31 @@ export default class CaseAttachController extends Controller {
     }
 
     /**
+     * 查询案件下全部附件
+     */
+    public async all() {
+        const { ctx, service } = this;
+        const { id } = ctx.params;
+
+        try {
+            const data = await service.caseAttach.caseAttach.all(id);
+
+            ctx.body = {
+                code: 0,
+                data,
+                error: null
+            }
+        } catch (error) {
+            console.log(error);
+            ctx.body = {
+                code: 1,
+                data: null,
+                error
+            }
+        }
+    }
+
+    /**
      * 删除附件记录
      */
     public async del() {

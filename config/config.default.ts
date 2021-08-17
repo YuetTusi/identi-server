@@ -14,7 +14,7 @@ export default (appInfo: EggAppInfo) => {
   //# login中间件参数
   config.auth = {
     enable: true,
-    ignore: /.*\/(login|attachment)/,
+    ignore: /.*\/(login)/,
     JWT_KEY: config.keys,
   }
 

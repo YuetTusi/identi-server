@@ -39,18 +39,27 @@ export default class RecController extends Controller {
      */
     public async insert() {
 
-        const { service } = this.ctx;
-        const { form } = this.ctx.request.body;
+        const {
+            ctx,
+            ctx: {
+                logger,
+                request: {
+                    body: { form }
+                },
+                service
+            }
+        } = this;
 
         try {
             const affectedRows = await service.rec.rec.insert(form)
-            this.ctx.body = {
+            ctx.body = {
                 code: 0,
                 data: affectedRows,
                 error: null
             }
         } catch (error) {
-            this.ctx.body = {
+            logger.error('新增案件记录失败 @controller/rec/rec/insert', error);
+            ctx.body = {
                 code: 1,
                 data: 0,
                 error
@@ -62,20 +71,29 @@ export default class RecController extends Controller {
      * 增加记录并更新案件
      */
     public async appendAndChangeCase() {
-        const { service } = this.ctx;
-        const { form } = this.ctx.request.body;
+        const {
+            ctx,
+            ctx: {
+                logger,
+                request: {
+                    body: { form }
+                },
+                service
+            }
+        } = this;
 
         try {
             const success: boolean = await service.rec.rec
                 .appendAndChangeCase(form.caseRec, form.lawCase)
 
-            this.ctx.body = {
+            ctx.body = {
                 code: 0,
                 data: success,
                 error: null
             }
         } catch (error) {
-            this.ctx.body = {
+            logger.error('新增案件记录及更新状态失败 @controller/rec/rec/appendAndChangeCase', error);
+            ctx.body = {
                 code: 1,
                 data: false,
                 error

@@ -22,3 +22,56 @@ CREATE TABLE `resource` (
 
 TRUNCATE TABLE `resource`;
 
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('8479bfd5-dee7-11eb-a5a5-6f43023f3655','0','案件鉴定','/','menu',0,10,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('cf89118a-d8b0-11eb-a03f-79a5cf1d245f','0','系统设置','/permission','menu',0,20,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('c79f6bd6-eb78-11eb-9fcf-42c7204a1485','0','个人中心','/profile','menu',0,100,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('108b386b-e3c0-11eb-bf98-e1e6db976120','f96244f1-d8b0-11eb-a03f-79a5cf1d245f','添加用户','/permission/user/add','sub',2,10,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('23f624a0-e60a-11eb-b7e3-d6b0ef9e4994','e8ec0d9a-dfcc-11eb-a5a5-6f43023f3655','添加案件','/permission/law-case/add','sub',2,10,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('23f6cb8e-e60a-11eb-b7e3-d6b0ef9e4994','e8ec0d9a-dfcc-11eb-a5a5-6f43023f3655','编辑案件','/permission/law-case/edit','sub',2,20,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('3c51c048-e096-11eb-8e00-488ce5d78823','8479bfd5-dee7-11eb-a5a5-6f43023f3655','我的案件','/default','menu',1,0,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('6742e739-f8d9-11eb-9f98-aa6910132fb3','f9641251-d8b0-11eb-a03f-79a5cf1d245f','添加角色','/permission/role/add','sub',2,10,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('c116aa0b-e920-11eb-bdb6-963853faeba9','3c51c048-e096-11eb-8e00-488ce5d78823','处理鉴定','/default/begin','sub',2,30,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('d53b227a-e5d0-11eb-b7e3-d6b0ef9e4994','f96244f1-d8b0-11eb-a03f-79a5cf1d245f','编辑用户','/permission/user/edit','sub',2,20,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('d6226e40-e9bd-11eb-bec6-ac91cf5b5bb5','e8ec0d9a-dfcc-11eb-a5a5-6f43023f3655','处理审核','/permission/law-case/approval','sub',2,40,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('dee3ef90-e8f8-11eb-bdb6-963853faeba9','3c51c048-e096-11eb-8e00-488ce5d78823','案件详情','/default/detail','sub',2,20,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('e8ec0d9a-dfcc-11eb-a5a5-6f43023f3655','cf89118a-d8b0-11eb-a03f-79a5cf1d245f','案件管理','/permission/law-case','menu',1,10,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('eaf782c1-e865-11eb-b7e3-d6b0ef9e4994','e8ec0d9a-dfcc-11eb-a5a5-6f43023f3655','案件详情','/permission/law-case/detail','sub',2,30,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('f613b427-eb78-11eb-9fcf-42c7204a1485','c79f6bd6-eb78-11eb-9fcf-42c7204a1485','用户设置','/profile/setting','menu',1,10,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('f96244f1-d8b0-11eb-a03f-79a5cf1d245f','cf89118a-d8b0-11eb-a03f-79a5cf1d245f','用户管理','/permission/user','menu',1,20,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('f9641251-d8b0-11eb-a03f-79a5cf1d245f','cf89118a-d8b0-11eb-a03f-79a5cf1d245f','角色管理','/permission/role','menu',1,30,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('f964b67e-d8b0-11eb-a03f-79a5cf1d245f','cf89118a-d8b0-11eb-a03f-79a5cf1d245f','资源查看','/permission/resource','menu',1,40,'2021-08-16 00:00:00','2021-08-16 00:00:00');

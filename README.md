@@ -31,3 +31,17 @@ $ npm start
 
 - Node.js 8.x
 - Typescript 2.8+
+
+### 部署
+
+1. 删除node_modules目录
+2. 安装生产依赖`npm install --production`
+3. 编译*.ts文件`tsc -p tsconfig.json`
+
+拷贝到部署服务器，运行`npm run start`启动服务；`npm run stop`停止服务。
+
+若在编译ts文件报找不到tslib，修改tsconfig.json的`importHelper`配置为`false`。
+
+服务器须安装node.js和egg.js。
+
+部署容器使用nginx。

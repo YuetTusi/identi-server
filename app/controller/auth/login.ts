@@ -66,7 +66,6 @@ class LoginController extends Controller {
 
         try {
             const data: any[] = await service.permission.user.getByNameAndPassword(username, password);
-
             if (data.length === 0) {
                 ctx.body = {
                     code: 0,

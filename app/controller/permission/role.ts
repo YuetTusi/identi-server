@@ -21,7 +21,7 @@ export default class ResourceController extends Controller {
                 error: null
             }
         } catch (error) {
-            console.log(error);
+            ctx.logger.error('创建角色失败 @controller/permission/role/create', error);
             ctx.body = {
                 code: 1,
                 data: false,
@@ -54,6 +54,10 @@ export default class ResourceController extends Controller {
                 }
             }
         } catch (error) {
+            ctx.logger.error(
+                `分配角色资源失败(id:${id}, resourceId:${JSON.stringify(resourceId)}) 
+                @controller/permission/role/updateResourceById`
+            );
             ctx.body = {
                 code: 1,
                 data: { success: false },
@@ -151,12 +155,14 @@ export default class ResourceController extends Controller {
         } catch (error) {
             const { errno } = error;
             if (errno === 1217 || errno === 1451) {
+                ctx.logger.error(`删除角色失败(违反外键约束 errno:${errno}) @controller/permission/role/del`, error);
                 ctx.body = {
                     code: 2,
                     data: false,
                     error
                 };
             } else {
+                ctx.logger.error(`删除角色失败(errno:${errno}) @controller/permission/role/del`, error);
                 ctx.body = {
                     code: 1,
                     data: false,

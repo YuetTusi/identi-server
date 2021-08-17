@@ -8,13 +8,13 @@ export default (appInfo: EggAppInfo) => {
 
   //# 中间件配置
   config.middleware = [
-    // 'auth'
+    'auth'
   ];
 
   //# login中间件参数
   config.auth = {
     enable: true,
-    ignore: /.*\/(login)/,
+    ignore: /.*\/(login|attachment)/,
     JWT_KEY: config.keys,
   }
 

@@ -1,8 +1,13 @@
 import { Controller } from 'egg';
 
+/**
+ * 菜单
+ */
 export default class MenuController extends Controller {
 
-
+    /**
+     * 用户菜单
+     */
     public async getMenuByUserId() {
         const { ctx } = this;
         const { id } = ctx.params;

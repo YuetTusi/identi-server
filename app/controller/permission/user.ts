@@ -171,6 +171,7 @@ export default class UserController extends Controller {
                 error: null
             }
         } catch (error) {
+            ctx.logger.error(`更新用户密码失败(id:${id}) @controller/permission/user/modifyPassword`, error);
             ctx.body = {
                 code: 1,
                 data: 0,
@@ -193,6 +194,7 @@ export default class UserController extends Controller {
                 data: affectedRows //影响行数
             }
         } catch (error) {
+            ctx.logger.error('创建用户失败 @controller/permission/user/insert', error);
             ctx.body = {
                 code: 1,
                 error,
@@ -218,7 +220,7 @@ export default class UserController extends Controller {
                 data: affectedRows //影响行数
             }
         } catch (error) {
-            console.log(error);
+            ctx.logger.error(`更新用户失败(id:${id}) @controller/permission/user/insert`, error);
             ctx.body = {
                 code: 1,
                 error,

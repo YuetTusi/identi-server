@@ -33,7 +33,7 @@ export default class UploadController extends Controller {
         const ext = extname(reader.filename)
         const writer = createWriteStream(`attachment/${hashname}${ext}`);
 
-        ctx.logger.info(`上传附件${reader.filename},哈希文件名:${hashname + ext}`);
+        ctx.logger.info(`上传附件:${reader.filename}, 哈希文件名:${hashname + ext}`);
 
         try {
             await task(reader, writer);

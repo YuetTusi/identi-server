@@ -19,3 +19,8 @@ CREATE TABLE `user` (
   `col9` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+
+INSERT INTO `identi_server`.`user`
+(`id`,`username`,`password`,`mail`,`realname`,`desc`,`create_time`,`update_time`)
+VALUES
+('a7b5ee69-d8ae-11eb-a03f-79a5cf1d245f','admin','YWRtaW4=','admin@azwx.com','默认管理员','管理员','2021-08-16 00:00:00','2021-08-16 00:00:00');

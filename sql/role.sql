@@ -15,3 +15,8 @@ CREATE TABLE `role` (
   `col9` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+
+INSERT INTO `identi_server`.`role`
+(`id`,`name`,`desc`,`create_time`,`update_time`)
+VALUES
+('141cb5dd-d8af-11eb-a03f-79a5cf1d245f','admin','管理员','2021-08-16 00:00:00','2021-08-16 00:00:00');

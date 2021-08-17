@@ -20,6 +20,10 @@ export default class DictController extends Controller {
                 error: null
             };
         } catch (error) {
+            ctx.logger.error(
+                `字典查询失败(category:${category}) @controller/dict/dict/getByCategory`,
+                error
+            );
             ctx.body = {
                 code: 1,
                 data: null,

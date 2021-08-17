@@ -11,7 +11,7 @@ export default function (options: any, _app: any) {
         const { JWT_KEY } = options; //应用KEY
         const token = ctx.request.get('Authorization');
         // console.log(`登录Auth验证 token=${token}`);
-        //TODO:在此处验证JWT_Token是否合法
+        //TODO:在此处验证JWT_Token篡改
         const payload = helper.jwtVerify(token, JWT_KEY);
 
         if (payload === '') {

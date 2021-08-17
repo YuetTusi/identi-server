@@ -53,7 +53,7 @@ export default class CaseAttachController extends Controller {
                 error: null
             }
         } catch (error) {
-            console.log(error);
+            ctx.logger.error('添加附件记录失败 @controller/case-attach/case-attach/insert', error);
             ctx.body = {
                 code: 1,
                 data: 0,
@@ -78,7 +78,7 @@ export default class CaseAttachController extends Controller {
                 error: null
             }
         } catch (error) {
-            console.log(error);
+            ctx.logger.error('查询案件附件失败 @controller/case-attach/case-attach/all', error);
             ctx.body = {
                 code: 1,
                 data: null,

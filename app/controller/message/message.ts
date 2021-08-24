@@ -66,6 +66,36 @@ export default class MessageController extends Controller {
     }
 
     /**
+     * 分页查询
+     */
+    public async findByPage() {
+        const { ctx } = this;
+        const { condition, pageIndex, pageSize } = ctx.request.body;
+
+        try {
+            const [data, total] = await ctx.service.message.message.findByPage(condition, Number(pageIndex), Number(pageSize));
+            ctx.body = {
+                code: 0,
+                data: {
+                    data,
+                    total: total[0].total
+                }
+            }
+        } catch (error) {
+            ctx.logger.error(`消息分页查询失败 @controller/message/message/findByPage`, error);
+            ctx.body = {
+                code: 1,
+                error,
+                data: {
+                    data: null,
+                    total: 0
+                }
+            }
+        }
+    }
+
+
+    /**
      * 创建消息
      */
     async insert() {

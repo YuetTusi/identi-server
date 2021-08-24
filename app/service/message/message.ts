@@ -51,6 +51,43 @@ class MessageService extends Service {
     }
 
     /**
+     * 分页查询
+     * @param condition 条件
+     * @param pageIndex 当前页
+     * @param pageSize 页尺寸
+     */
+    public async findByPage(condition: any, pageIndex: number, pageSize: number) {
+
+        const { app, ctx } = this;
+
+        let sqlCondition = '';
+        let sqlParams: any[] = [];
+
+        if (!ctx.helper.isNullOrUndefinedOrEmpty(condition?.read)) {
+            sqlCondition += ' AND \`read\`=? ';
+            sqlParams = sqlParams.concat([condition.read]);
+        }
+        if (!ctx.helper.isNullOrUndefinedOrEmpty(condition?.user_id)) {
+            sqlCondition += ' AND user_id=? ';
+            sqlParams = sqlParams.concat([condition.user_id]);
+        }
+
+        const FIND_PAGE = `SELECT 
+            m.id,m.user_id,m.case_id,m.content,concat_ws(' ',u.username,u.realname) as identi_username,m.\`read\`,m.create_time,m.update_time 
+            FROM message m
+            INNER JOIN \`user\` u ON m.user_id=u.id
+            WHERE 1=1 ${sqlCondition}
+            ORDER BY create_time DESC
+            LIMIT ? OFFSET ?`;
+        const FIND_TOTAL_ROW = `SELECT count(*) as 'total' FROM message WHERE 1=1 ${sqlCondition}`;
+
+        return await Promise.all([
+            app.mysql.query(FIND_PAGE, [...sqlParams, pageSize, (pageIndex - 1) * pageSize]),
+            app.mysql.query(FIND_TOTAL_ROW, [...sqlParams])
+        ]);
+    }
+
+    /**
      * 
      * @param data 数据
      */

@@ -44,6 +44,9 @@ INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_tim
 VALUES ('3c51c048-e096-11eb-8e00-488ce5d78823','8479bfd5-dee7-11eb-a5a5-6f43023f3655','我的案件','/default','menu',1,0,'2021-08-16 00:00:00','2021-08-16 00:00:00');
 
 INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('f675585a-96a9-4416-88c7-a32792b9c92c','8479bfd5-dee7-11eb-a5a5-6f43023f3655','我的消息','/message','menu',1,10,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
 VALUES ('6742e739-f8d9-11eb-9f98-aa6910132fb3','f9641251-d8b0-11eb-a03f-79a5cf1d245f','添加角色','/permission/role/add','sub',2,10,'2021-08-16 00:00:00','2021-08-16 00:00:00');
 
 INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)

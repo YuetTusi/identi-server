@@ -60,6 +60,7 @@ export default (app: Application) => {
   //# 操作消息
   router.get('/message/:id', controller.message.message.getById); //* 按id查询消息
   router.get('/message/user/:id', controller.message.message.getByUser); //* 查询用户消息
+  router.post('/message/list', controller.message.message.findByPage); //* 分页查询
   router.post('/message', controller.message.message.insert); //* 创建消息
   router.put('/message/:id', controller.message.message.update); //* 更新消息
   router.put('/message/:id/read', controller.message.message.updateRead); //* 更新已读消息

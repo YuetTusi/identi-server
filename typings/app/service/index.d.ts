@@ -11,6 +11,7 @@ import ExportCaseAttachCaseAttach from '../../../app/service/case-attach/case-at
 import ExportDefaultDefault from '../../../app/service/default/default';
 import ExportDictDict from '../../../app/service/dict/dict';
 import ExportMenuMenu from '../../../app/service/menu/menu';
+import ExportMessageMessage from '../../../app/service/message/message';
 import ExportPermissionLawCase from '../../../app/service/permission/law-case';
 import ExportPermissionResource from '../../../app/service/permission/resource';
 import ExportPermissionRole from '../../../app/service/permission/role';
@@ -31,6 +32,9 @@ declare module 'egg' {
     }
     menu: {
       menu: AutoInstanceType<typeof ExportMenuMenu>;
+    }
+    message: {
+      message: AutoInstanceType<typeof ExportMessageMessage>;
     }
     permission: {
       lawCase: AutoInstanceType<typeof ExportPermissionLawCase>;

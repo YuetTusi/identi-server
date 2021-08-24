@@ -57,6 +57,14 @@ export default (app: Application) => {
   router.post('/rec', controller.rec.rec.insert); //* 添加案件记录
   router.post('/rec/append', controller.rec.rec.appendAndChangeCase); //* 添加案件记录并更新案件
 
+  //# 操作消息
+  router.get('/message/:id', controller.message.message.getById); //* 按id查询消息
+  router.get('/message/user/:id', controller.message.message.getByUser); //* 查询用户消息
+  router.post('/message', controller.message.message.insert); //* 创建消息
+  router.put('/message/:id', controller.message.message.update); //* 更新消息
+  router.put('/message/:id/read', controller.message.message.updateRead); //* 更新已读消息
+  router.put('/message/user/:id', controller.message.message.updateReadAll); //* 更新全部已读消息
+
   //# 附件记录
   router.get('/case-attach/case/:id', controller.caseAttach.caseAttach.all); //* 查询案件全部附件
   router.post('/case-attach/list', controller.caseAttach.caseAttach.findByPage); //* 分页查询

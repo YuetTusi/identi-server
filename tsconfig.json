@@ -21,6 +21,7 @@
 		"skipDefaultLibCheck": true,
 		"inlineSourceMap": true,
 		"importHelpers": false,
+		"esModuleInterop": true
 		// "baseUrl": ".",
 		// "paths": {
 		// 	"tslib": ["node_modules/tslib/tslib.d.ts"]

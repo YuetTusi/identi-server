@@ -10,6 +10,7 @@ import ExportCaseAttachCaseAttach from '../../../app/controller/case-attach/case
 import ExportDefaultDefault from '../../../app/controller/default/default';
 import ExportDictDict from '../../../app/controller/dict/dict';
 import ExportMenuMenu from '../../../app/controller/menu/menu';
+import ExportMessageMessage from '../../../app/controller/message/message';
 import ExportPermissionLawCase from '../../../app/controller/permission/law-case';
 import ExportPermissionResource from '../../../app/controller/permission/resource';
 import ExportPermissionRole from '../../../app/controller/permission/role';
@@ -37,6 +38,9 @@ declare module 'egg' {
     }
     menu: {
       menu: ExportMenuMenu;
+    }
+    message: {
+      message: ExportMessageMessage;
     }
     permission: {
       lawCase: ExportPermissionLawCase;

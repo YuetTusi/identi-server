@@ -39,6 +39,5 @@ export default () => {
     ],
   }
 
-  // the return config will combines to EggAppConfig
   return config;
 };

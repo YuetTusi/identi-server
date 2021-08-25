@@ -11,6 +11,11 @@ const plugin: EggPlugin = {
   cors: {
     enable: true,
     package: 'egg-cors'
+  },
+  //下载器
+  downloader: {
+    enable: true,
+    package: 'egg-downloader'
   }
 };
 

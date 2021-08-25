@@ -31,8 +31,11 @@ export default class DownloadController extends Controller {
             } else {
                 const { file_name, hash_name } = data;
                 const attachPath = resolve(process.cwd(), './attachment/', hash_name);
+                const size = await ctx.helper.getFileSize(attachPath);
                 ctx.logger.info(`下载附件:attachment/${hash_name},原文件名:${file_name}`);
+                ctx.set('Content-Length', size.toString());
                 ctx.set('Content-Type', 'application/octet-stream');
+
                 ctx.attachment(file_name);
                 ctx.body = createReadStream(attachPath);
             }

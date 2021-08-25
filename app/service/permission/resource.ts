@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { Service } from 'egg';
 
 class ResourceService extends Service {
@@ -90,6 +91,20 @@ class ResourceService extends Service {
             app.mysql.query(FIND_PAGE, [...sqlParams, pageSize, (pageIndex - 1) * pageSize]),
             app.mysql.query(FIND_TOTAL_ROW, [...sqlParams])
         ]);
+    }
+
+    /**
+     * 更新菜单顺序
+     * @param id 主键id
+     * @param seq 顺序
+     */
+    async updateSeq(id: string, seq: number) {
+
+        const { mysql } = this.app;
+        const updateTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
+        const SQL_UPDATE_SEQ = 'UPDATE resource SET seq=?,update_time=? WHERE id=?';
+        const { affectedRows } = await mysql.query(SQL_UPDATE_SEQ, [seq, updateTime, id]);
+        return affectedRows;
     }
 }
 

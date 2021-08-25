@@ -22,6 +22,7 @@ export default (app: Application) => {
   router.get('/resource/has-parent', controller.permission.resource.getResourceHasParent); //* 查询有上级资源的数据
   router.get('/resource/role/:id', controller.permission.resource.getResourceByRoleId);//* 按用户id查询拥有的资源
   router.post('/resource/list', controller.permission.resource.findByPage); //* 资源查看
+  router.put('/resource/:id/seq', controller.permission.resource.updateSeq); //* 更新菜单顺序
 
   //# 角色管理
   router.get('/role', controller.permission.role.getAll); //* 查询全部角色

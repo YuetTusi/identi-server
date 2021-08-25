@@ -118,4 +118,30 @@ export default class ResourceController extends Controller {
             }
         }
     }
+
+    /**
+     * 更新菜单顺序
+     * PUT resource/:id/seq
+     */
+    public async updateSeq() {
+
+        const { ctx, service } = this;
+        const { id } = ctx.params;
+        const { form } = ctx.request.body;
+        try {
+            const affectedRows = await service.permission.resource.updateSeq(id, form.seq);
+            ctx.body = {
+                code: 0,
+                data: affectedRows,
+                error: null
+            }
+        } catch (error) {
+            ctx.logger.error(`更新菜单顺序失败 id:${id},seq:${form.seq} @controller/permission/resource/updateSeq`, error);
+            ctx.body = {
+                code: 1,
+                data: 0,
+                error
+            }
+        }
+    }
 }

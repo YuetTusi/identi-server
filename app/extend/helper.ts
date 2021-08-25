@@ -1,4 +1,4 @@
-import { access, unlink } from 'fs';
+import { access, stat, unlink } from 'fs';
 import { v4 } from 'uuid';
 import { JwtPayload, sign, verify } from 'jsonwebtoken';
 
@@ -124,5 +124,21 @@ export default {
      */
     batchDelFile(filePath: string[] = []) {
         return Promise.all(filePath.map(i => this.delFile(i, true)));
+    },
+    /**
+     * 查询文件大小
+     * @param filePath
+     * @returns Promise<number> 单位为字节
+     */
+    getFileSize(filePath: string) {
+        return new Promise<number>((resolve, reject) => {
+            stat(filePath, (err, stat) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(stat.size);
+                }
+            });
+        });
     }
 }

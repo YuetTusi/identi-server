@@ -96,6 +96,17 @@ class RoleService extends Service {
     }
 
     /**
+     * 查询角色名称数量
+     * @param name 角色名称
+     */
+    public async findNameCount(name: string) {
+        const { mysql } = this.app;
+        const FIND_NAME_COUNT = 'SELECT count(*) AS count FROM role WHERE name=?';
+        const data = await mysql.query(FIND_NAME_COUNT, [name]);
+        return data;
+    }
+
+    /**
      * 查询全部数据
      * @returns 
      */

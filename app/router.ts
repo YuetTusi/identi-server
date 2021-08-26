@@ -27,6 +27,7 @@ export default (app: Application) => {
   //# 角色管理
   router.get('/role', controller.permission.role.getAll); //* 查询全部角色
   router.get('/role/:id', controller.permission.role.getById); //* id查询角色
+  router.get('/role/count/:name', controller.permission.role.findNameCount); //* 查询角色名称数量
   router.post('/role/list', controller.permission.role.findByPage); //* 查询角色
   router.post('/role', controller.permission.role.create); //* 添加角色
   router.put('/role/resource/:id', controller.permission.role.updateResourceById); //* 更新角色所属资源

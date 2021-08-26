@@ -117,6 +117,30 @@ export default class ResourceController extends Controller {
     }
 
     /**
+     * 查询角色名称数量
+     */
+    public async findNameCount() {
+
+        const { ctx } = this;
+        const { name } = ctx.params;
+
+        try {
+            const data = await ctx.service.permission.role.findNameCount(name);
+            ctx.body = {
+                code: 0,
+                data: data[0].count,
+                error: null
+            }
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                data: null,
+                error
+            }
+        }
+    }
+
+    /**
      * 查询全部角色
      */
     public async getAll() {

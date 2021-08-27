@@ -9,6 +9,7 @@ type AutoInstanceType<T, U = T extends CanExportFunc ? T : T extends AnyFunc ? R
 import ExportTest from '../../../app/service/Test';
 import ExportCaseAttachCaseAttach from '../../../app/service/case-attach/case-attach';
 import ExportDefaultDefault from '../../../app/service/default/default';
+import ExportDeviceDevice from '../../../app/service/device/device';
 import ExportDictDict from '../../../app/service/dict/dict';
 import ExportMenuMenu from '../../../app/service/menu/menu';
 import ExportMessageMessage from '../../../app/service/message/message';
@@ -26,6 +27,9 @@ declare module 'egg' {
     }
     default: {
       default: AutoInstanceType<typeof ExportDefaultDefault>;
+    }
+    device: {
+      device: AutoInstanceType<typeof ExportDeviceDevice>;
     }
     dict: {
       dict: AutoInstanceType<typeof ExportDictDict>;

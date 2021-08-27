@@ -59,6 +59,9 @@ export default (app: Application) => {
   router.post('/rec', controller.rec.rec.insert); //* 添加案件记录
   router.post('/rec/append', controller.rec.rec.appendAndChangeCase); //* 添加案件记录并更新案件
 
+  //# 设备
+  router.post('/device', controller.device.device.insert); //* 添加设备
+
   //# 操作消息
   router.get('/message/:id', controller.message.message.getById); //* 按id查询消息
   router.get('/message/user/:id', controller.message.message.getByUser); //* 查询用户消息

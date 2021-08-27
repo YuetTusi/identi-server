@@ -8,6 +8,7 @@ import ExportAttachmentUpload from '../../../app/controller/attachment/upload';
 import ExportAuthLogin from '../../../app/controller/auth/login';
 import ExportCaseAttachCaseAttach from '../../../app/controller/case-attach/case-attach';
 import ExportDefaultDefault from '../../../app/controller/default/default';
+import ExportDeviceDevice from '../../../app/controller/device/device';
 import ExportDictDict from '../../../app/controller/dict/dict';
 import ExportMenuMenu from '../../../app/controller/menu/menu';
 import ExportMessageMessage from '../../../app/controller/message/message';
@@ -32,6 +33,9 @@ declare module 'egg' {
     }
     default: {
       default: ExportDefaultDefault;
+    }
+    device: {
+      device: ExportDeviceDevice;
     }
     dict: {
       dict: ExportDictDict;

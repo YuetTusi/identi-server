@@ -10,6 +10,36 @@ export default class DeviceController extends Controller {
     }
 
     /**
+     * 分页查询
+     */
+    public async findByPage() {
+        const { ctx } = this;
+        const { form } = ctx.request.body;
+        const { condition, pageIndex, pageSize } = form;
+
+        try {
+            const [data, total] = await ctx.service.device.device.findByPage(condition, Number(pageIndex), Number(pageSize));
+            ctx.body = {
+                code: 0,
+                data: {
+                    data,
+                    total: total[0].total
+                }
+            }
+        } catch (error) {
+            ctx.logger.error(`设备分页查询失败 @controller/device/device/findByPage`, error);
+            ctx.body = {
+                code: 1,
+                error,
+                data: {
+                    data: null,
+                    total: 0
+                }
+            }
+        }
+    }
+
+    /**
      * 添加设备
      */
     public async insert() {
@@ -29,6 +59,38 @@ export default class DeviceController extends Controller {
             ctx.body = {
                 code: 1,
                 data: 0,
+                error
+            }
+        }
+    }
+
+    /**
+     * 删除设备
+     */
+    public async del(){
+        const { ctx } = this;
+        const { id } = ctx.params;
+
+        try {
+            const { success }: { success: boolean } = await ctx.service.device.device.del(id);
+            if (success) {
+                ctx.body = {
+                    code: 0,
+                    data: { success },
+                    error: null
+                }
+            } else {
+                ctx.body = {
+                    code: 0,
+                    data: { success: false },
+                    error: null
+                }
+            }
+        } catch (error) {
+            ctx.logger.error(`删除设备失败(id:${id}) @controller/device/device/del`, error);
+            ctx.body = {
+                code: 1,
+                data: { success: false },
                 error
             }
         }

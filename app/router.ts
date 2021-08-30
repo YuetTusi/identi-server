@@ -60,8 +60,10 @@ export default (app: Application) => {
   router.post('/rec/append', controller.rec.rec.appendAndChangeCase); //* 添加案件记录并更新案件
 
   //# 设备
+  router.get('/device/:id', controller.device.device.findById); //* 分页查询
   router.post('/device/list', controller.device.device.findByPage); //* 分页查询
   router.post('/device', controller.device.device.insert); //* 添加设备
+  router.put('/device/:id', controller.device.device.update); //* 更新设备
   router.delete('/device/:id', controller.device.device.del); //* 删除设备
 
   //# 操作消息

@@ -10,6 +10,29 @@ export default class DeviceController extends Controller {
     }
 
     /**
+     * 按id查询
+     */
+    public async findById() {
+        const { ctx, logger, service } = this;
+        const { id } = ctx.params;
+        try {
+            const data = await service.device.device.findById(id);
+            ctx.body = {
+                code: 0,
+                data,
+                error: null
+            }
+        } catch (error) {
+            logger.error(`查询设备失败,id:${id} @controller/device/device/findById`, error);
+            ctx.body = {
+                code: 1,
+                data: null,
+                error
+            }
+        }
+    }
+
+    /**
      * 分页查询
      */
     public async findByPage() {
@@ -65,9 +88,37 @@ export default class DeviceController extends Controller {
     }
 
     /**
+     * 更新设备
+     */
+    public async update() {
+        const { ctx } = this;
+        const { id } = ctx.params;
+        const { form } = ctx.request.body;
+
+        form.id = id;
+        try {
+            console.log(form);
+
+            const affectedRows = await ctx.service.device.device.update(form);
+            ctx.body = {
+                code: 0,
+                error: null,
+                data: affectedRows //影响行数
+            }
+        } catch (error) {
+            ctx.logger.error(`更新设备失败(id:${id}) @controller/device/device/update`, error);
+            ctx.body = {
+                code: 1,
+                error,
+                data: 0//影响行数
+            }
+        }
+    }
+
+    /**
      * 删除设备
      */
-    public async del(){
+    public async del() {
         const { ctx } = this;
         const { id } = ctx.params;
 

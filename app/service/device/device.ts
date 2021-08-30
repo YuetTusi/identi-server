@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { Service } from "egg";
 
 /**
@@ -9,6 +10,22 @@ export default class CaseAttachService extends Service {
 
     constructor(props: any) {
         super(props);
+    }
+
+    /**
+     * 按id查询
+     * @param id 主键
+     */
+    async findById(id: string) {
+        const { mysql } = this.app;
+        const data = await mysql.get(this.tableName, { id }, {
+            columns: ['id', 'law_case_id', 'create_time', 'update_time', 'case_id', 'case_name', 'case_type_code', 'case_type',
+                'ab', 'ab_name', 'object_id', 'owner_name', 'bm', 'identity_id_type_code', 'identity_id_type', 'identity_id', 'hjdz',
+                'dz', 'gzdw', 'guojia_code', 'guojia', 'minzu_code', 'minzu', 'phone', 'desc', 'date', 'flag', 'officer_id', 'officer_name',
+                'dept', 'dept_name', 'strflag', 'str_phone_path', 'phone_name', 'note']
+        });
+        return data;
+
     }
 
     /**
@@ -53,6 +70,16 @@ export default class CaseAttachService extends Service {
     async insert(data: any) {
         const { mysql } = this.app;
         const { affectedRows } = await mysql.insert(this.tableName, data);
+        return affectedRows;
+    }
+
+    /**
+     * 更新设备
+     */
+    async update(data: any) {
+        const { app } = this;
+        data.update_time = dayjs().format('YYYY-MM-DD HH:mm:ss');
+        const { affectedRows } = await app.mysql.update(this.tableName, data);
         return affectedRows;
     }
 

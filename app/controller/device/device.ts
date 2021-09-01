@@ -33,6 +33,29 @@ export default class DeviceController extends Controller {
     }
 
     /**
+     * 按案件id查询
+     */
+    public async findByCase() {
+        const { ctx, logger, service } = this;
+        const { id } = ctx.params;
+        try {
+            const data = await service.device.device.findByCase(id);
+            ctx.body = {
+                code: 0,
+                data,
+                error: null
+            }
+        } catch (error) {
+            logger.error(`查询案件下设备失败,id:${id} @controller/device/device/findByCase`, error);
+            ctx.body = {
+                code: 1,
+                data: null,
+                error
+            }
+        }
+    }
+
+    /**
      * 分页查询
      */
     public async findByPage() {

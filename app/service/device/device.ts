@@ -25,7 +25,23 @@ export default class CaseAttachService extends Service {
                 'dept', 'dept_name', 'strflag', 'str_phone_path', 'phone_name', 'note']
         });
         return data;
+    }
 
+    /**
+     * 查询案件下的设备
+     * @param id 案件id
+     */
+    async findByCase(id: string) {
+        const { mysql } = this.app;
+        const data = await mysql.select(this.tableName, {
+            where: { law_case_id: id },
+            columns: ['id', 'law_case_id', 'create_time', 'update_time', 'case_id', 'case_name', 'case_type_code', 'case_type',
+                'ab', 'ab_name', 'object_id', 'owner_name', 'bm', 'identity_id_type_code', 'identity_id_type', 'identity_id', 'hjdz',
+                'dz', 'gzdw', 'guojia_code', 'guojia', 'minzu_code', 'minzu', 'phone', 'desc', 'date', 'flag', 'officer_id', 'officer_name',
+                'dept', 'dept_name', 'strflag', 'str_phone_path', 'phone_name', 'note'],
+            orders: [['create_time', 'desc'], ['update_time', 'desc']]
+        });
+        return data;
     }
 
     /**

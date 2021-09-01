@@ -61,6 +61,7 @@ export default (app: Application) => {
 
   //# 设备
   router.get('/device/:id', controller.device.device.findById); //* 分页查询
+  router.get('/device/law-case/:id', controller.device.device.findByCase);//* 查询案件下设备
   router.post('/device/list', controller.device.device.findByPage); //* 分页查询
   router.post('/device', controller.device.device.insert); //* 添加设备
   router.put('/device/:id', controller.device.device.update); //* 更新设备

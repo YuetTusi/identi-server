@@ -63,6 +63,81 @@ export default class CaseAttachController extends Controller {
     }
 
     /**
+     * 批量增加附件记录
+     */
+    public async multiInsert() {
+        const { ctx, service } = this;
+        const { form } = ctx.request.body;
+
+        try {
+            const affectedRows = await service.caseAttach.caseAttach.multiInsert(form);
+
+            ctx.body = {
+                code: 0,
+                data: affectedRows,
+                error: null
+            }
+        } catch (error) {
+            ctx.logger.error('批量添加附件记录失败 @controller/case-attach/case-attach/multiInsert', error);
+            ctx.body = {
+                code: 1,
+                data: 0,
+                error
+            }
+        }
+    }
+
+    /**
+     * 查询案件附件
+     */
+    public async findByCaseId() {
+        const { ctx, service } = this;
+        const { id } = ctx.params;
+
+        try {
+            const data = await service.caseAttach.caseAttach.findByCaseId(id);
+
+            ctx.body = {
+                code: 0,
+                data,
+                error: null
+            }
+        } catch (error) {
+            ctx.logger.error('查询案件附件失败 @controller/case-attach/case-attach/findByCaseId', error);
+            ctx.body = {
+                code: 1,
+                data: null,
+                error
+            }
+        }
+    }
+
+    /**
+     * 查询设备附件
+     */
+    public async findBySuspectId() {
+        const { ctx, service } = this;
+        const { id } = ctx.params;
+
+        try {
+            const data = await service.caseAttach.caseAttach.findBySuspectId(id);
+
+            ctx.body = {
+                code: 0,
+                data,
+                error: null
+            }
+        } catch (error) {
+            ctx.logger.error('查询设备附件失败 @controller/case-attach/case-attach/findBySuspectId', error);
+            ctx.body = {
+                code: 1,
+                data: null,
+                error
+            }
+        }
+    }
+
+    /**
      * 查询案件下全部附件
      */
     public async all() {

@@ -66,11 +66,37 @@ export default class CaseAttachService extends Service {
     /**
      * 添加设备
      * @param data 设备数据
+     * @param attachment 附件数据
      */
-    async insert(data: any) {
+    async insert(data: any, attachment: any[] = []) {
         const { mysql } = this.app;
-        const { affectedRows } = await mysql.insert(this.tableName, data);
-        return affectedRows;
+
+        if (attachment.length === 0) {
+            const { affectedRows } = await mysql.insert(this.tableName, data);
+            return { success: affectedRows > 0 };
+        } else {
+            const BATCH_INSERT = 'INSERT INTO attachment (id,case_id,suspect_id,file_name,hash_name,create_time,update_time) VALUES ';
+            let stat: string[] = [];
+            let param: any[] = [];
+            attachment.forEach(item => {
+                stat.push('(?,?,?,?,?,?,?)');
+                param.push(
+                    item.id,
+                    item.case_id,
+                    item.suspect_id,
+                    item.file_name,
+                    item.hash_name,
+                    item.create_time,
+                    item.update_time
+                );
+            });
+
+            return await mysql.beginTransactionScope(async (conn) => {
+                await conn.query(BATCH_INSERT + stat.join(','), param);
+                await conn.insert(this.tableName, data); //添加设备
+                return { success: true };
+            });
+        }
     }
 
     /**
@@ -90,10 +116,11 @@ export default class CaseAttachService extends Service {
     async del(id: string) {
 
         const { mysql } = this.app;
-        // const { helper } = this.ctx;
+        const DEL_DEVICE_ATTACH = 'DELETE FROM attachment WHERE suspect_id=?';
         const DEL_DEVICE = 'DELETE FROM suspect WHERE id=?';
 
         return await mysql.beginTransactionScope(async (conn) => {
+            await conn.query(DEL_DEVICE_ATTACH, [id]);//删除设备附件
             await conn.query(DEL_DEVICE, [id]); //删除设备
             return { success: true };
         });

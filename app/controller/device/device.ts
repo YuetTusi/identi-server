@@ -67,21 +67,25 @@ export default class DeviceController extends Controller {
      */
     public async insert() {
         const { ctx, service } = this;
-        const { form } = ctx.request.body;
+        const { form, attachment } = ctx.request.body;
+
+        console.clear();
+        console.log(form);
+        console.log(attachment);
 
         try {
-            const affectedRows = await service.device.device.insert(form);
+            const result = await service.device.device.insert(form, attachment);
 
             ctx.body = {
                 code: 0,
-                data: affectedRows,
+                data: result,
                 error: null
             }
         } catch (error) {
             ctx.logger.error(`添加设备失败 @controller/device/device/insert`, error);
             ctx.body = {
                 code: 1,
-                data: 0,
+                data: { success: false },
                 error
             }
         }
@@ -97,7 +101,6 @@ export default class DeviceController extends Controller {
 
         form.id = id;
         try {
-            console.log(form);
 
             const affectedRows = await ctx.service.device.device.update(form);
             ctx.body = {

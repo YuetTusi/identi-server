@@ -76,9 +76,11 @@ export default (app: Application) => {
   router.put('/message/user/:id', controller.message.message.updateReadAll); //* 更新全部已读消息
 
   //# 附件记录
-  router.get('/case-attach/case/:id', controller.caseAttach.caseAttach.all); //* 查询案件全部附件
+  router.get('/case-attach/case/:id', controller.caseAttach.caseAttach.findByCaseId); //* 查询案件全部附件
+  router.get('/case-attach/device/:id', controller.caseAttach.caseAttach.findBySuspectId); //* 查询设备全部附件
   router.post('/case-attach/list', controller.caseAttach.caseAttach.findByPage); //* 分页查询
   router.post('/case-attach', controller.caseAttach.caseAttach.insert); //* 添加附件记录
+  router.post('/case-attach/multi', controller.caseAttach.caseAttach.multiInsert); //* 批量添加附件记录
   router.delete('/case-attach', controller.caseAttach.caseAttach.del); //* 删除附件记录
 
   //# 附件

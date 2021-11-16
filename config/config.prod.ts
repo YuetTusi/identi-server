@@ -19,7 +19,7 @@ export default () => {
       // 用户名
       user: 'root',
       // 密码
-      password: '1qaz2wsx',
+      password: '8712y0u0e',
       // 数据库名
       database: 'identi_server',
     },
@@ -34,6 +34,7 @@ export default () => {
     csrf: { enable: false },
     domainWhiteList: [
       'http://127.0.0.1:9910',
+      'http://127.0.0.1:9999',
       'http://192.168.1.254:9910'
     ],
   }

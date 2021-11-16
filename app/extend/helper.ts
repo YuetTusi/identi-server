@@ -22,7 +22,7 @@ export default {
     /**
      * 验证JWT_Token篡改
      * @param token 验证的token
-     * @returns 原签名对象失败返回null
+     * @returns 原签名对象失败返回空串
      */
     jwtVerify(token: string, key: string) {
 

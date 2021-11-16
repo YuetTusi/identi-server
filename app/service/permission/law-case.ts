@@ -117,7 +117,6 @@ export default class LawCaseService extends Service {
     async updateState(id: string, state: number) {
         const { mysql } = this.app;
         const prev = await mysql.get(this.tableName, { id });
-        console.log(prev);
         if (prev === null) {
             return 0;
         } else {
@@ -139,19 +138,29 @@ export default class LawCaseService extends Service {
         const DEL_CASE_REC = 'DELETE FROM case_rec WHERE case_id=?';
         const DEL_MESSAGE = 'DELETE FROM message WHERE case_id=?';
         const DEL_LAWCASE = 'DELETE FROM law_case WHERE id=?';
+        const DEL_SUSPECT = 'DELETE FROM suspect WHERE law_case_id=?';
 
-        const attachList: any[] = await mysql.select('attachment', {
+        let caseAttaches: any[] = []; //案件关联附件
+        let suspectAttaches: any[] = [];//设备关联附件
+
+        caseAttaches = await mysql.select('attachment', {
             where: { case_id: id },
             columns: ['hash_name']
         });
 
+        const suspects: any[] = await mysql.select('suspect', { columns: ['id'], where: { law_case_id: id } });
+        if (suspects.length !== 0) {
+            suspectAttaches = await mysql.select('attachment', { columns: ['hash_name'], where: { suspect_id: suspects.map(i => i.id) } });
+        }
+
         await helper.batchDelFile(
-            attachList.map(i =>
+            [...caseAttaches, ...suspectAttaches].map(i =>
                 resolve(process.cwd(), './attachment/', i.hash_name)
             )
         ); //批量删除案件关联所有附件
 
         return await mysql.beginTransactionScope(async (conn) => {
+            await conn.query(DEL_SUSPECT, [id]); //删除案件下设备
             await conn.query(DEL_CASE_ATTACH, [id]); //删除案件关联的附件记录
             await conn.query(DEL_CASE_REC, [id]); //删除案件关联的鉴定记录
             await conn.query(DEL_MESSAGE, [id]); //删除关联消息

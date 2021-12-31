@@ -89,5 +89,10 @@ export default (app: Application) => {
   router.post('/attachment/upload', controller.attachment.upload.doUpload); //* 上传附件
 
   //# 字典
-  router.get('/dict/:category', controller.dict.dict.getByCategory); //* 按分类查询字典
+  router.get('/dict/:id', controller.dict.dict.findById); //* 按分类查询字典
+  router.get('/dict/category/:category', controller.dict.dict.getByCategory); //* 按分类查询字典
+  router.post('/dict/list', controller.dict.dict.findByPage); //* 分页查询
+  router.post('/dict', controller.dict.dict.insert); //* 添加字典
+  router.put('/dict', controller.dict.dict.update); //* 更新查询
+  router.delete('/dict/:id', controller.dict.dict.del); //* 删除字典
 };

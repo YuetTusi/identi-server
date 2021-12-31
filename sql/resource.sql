@@ -84,3 +84,6 @@ VALUES ('f9641251-d8b0-11eb-a03f-79a5cf1d245f','cf89118a-d8b0-11eb-a03f-79a5cf1d
 
 INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
 VALUES ('f964b67e-d8b0-11eb-a03f-79a5cf1d245f','cf89118a-d8b0-11eb-a03f-79a5cf1d245f','资源查看','/permission/resource','menu',1,40,'2021-08-16 00:00:00','2021-08-16 00:00:00');
+
+INSERT INTO `resource` (`id`,`pid`,`name`,`key`,`type`,`level`,`seq`,`create_time`,`update_time`)
+VALUES ('746e22c5-de85-4db3-baa1-a5943008bf42','cf89118a-d8b0-11eb-a03f-79a5cf1d245f','字典管理','/permission/dict','menu',1,50,'2021-08-16 00:00:00','2021-08-16 00:00:00');
